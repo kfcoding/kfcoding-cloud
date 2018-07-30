@@ -1,0 +1,36 @@
+## SERVER
+server:
+  port: 7291
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://peer1:8761/eureka/,http://peer2:8762/eureka/'
+
+spring:
+  application:
+    name: kfcoding-gateway
+  cloud:
+      loadbalancer:
+        retry:
+          enabled: true
+  zipkin:
+    base-url: http://localhost:9411/
+
+endpoints:
+  actuator:
+    sensitive: false
+
+ribbon:
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 3
+  OkToRetryOnAllOperations: true
+  ConnectTimeout: 1500
+  ReadTimeout: 2000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500

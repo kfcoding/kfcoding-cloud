@@ -1,0 +1,24 @@
+server:
+  port: 7020
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://peer1:8761/eureka/,http://peer2:8762/eureka/'
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: false
+    lease-renewal-interval-in-seconds: 10
+spring:
+  application:
+    name: 'spring-boot-admin'
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+  boot:
+    admin:
+      turbine:
+        url: 'http://localhost:8193/turbine.stream'
+        clusters: 'kfcoding'
+endpoints:
+  sensitive: false
