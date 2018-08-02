@@ -16,14 +16,14 @@
         <module>../kfcoding-gateway</module>
         <module>../kfcoding-zipkin</module>
         <module>../kfcoding-spring-boot-admin</module>
+        <module>../kfcoding-framework</module>
+        <module>../kfcoding-auth</module>
     </modules>
 
     <groupId>com.cuiyun</groupId>
     <artifactId>kfcoding-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
-
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -38,16 +38,31 @@
         <java.version>1.8</java.version>
         <guava.version>21.0</guava.version>
         <commons-io.version>2.5</commons-io.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-codec.version>1.10</commons-codec.version>
+        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mybatis-plus.version>2.3</mybatis-plus.version>
         <springfox.version>2.6.1</springfox.version>
         <java-jwt.version>3.1.0</java-jwt.version>
         <mysql-connector-java.version>5.1.40</mysql-connector-java.version>
         <jackson-datatype.version>2.8.7</jackson-datatype.version>
+        <fastjson.version>1.2.44</fastjson.version>
+        <druid.version>1.1.6</druid.version>
         <spring-boot-admin.version>1.4.6</spring-boot-admin.version>
         <hutool.version>4.0.0</hutool.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.14</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -55,7 +70,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR6</version>
+                <version>Finchley.M8</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -85,14 +100,29 @@
                 <version>${mysql-connector-java.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatisplus-spring-boot-starter</artifactId>
+                <version>${mybatisplus-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-io</groupId>
+                <groupId>org.apache.commons</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -115,24 +145,14 @@
                 <version>${springfox.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.module</groupId>
-                <artifactId>jackson-module-parameter-names</artifactId>
-                <version>${jackson-datatype.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jdk8</artifactId>
-                <version>${jackson-datatype.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${jackson-datatype.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-guava</artifactId>
-                <version>${jackson-datatype.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.auth0</groupId>
