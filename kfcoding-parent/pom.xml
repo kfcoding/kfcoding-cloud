@@ -12,12 +12,11 @@
     </developers>
     <modules>
         <module>../kfcoding-eureka</module>
-        <module>../kfcoding-hystrix-dashboard</module>
         <module>../kfcoding-gateway</module>
         <module>../kfcoding-zipkin</module>
-        <module>../kfcoding-spring-boot-admin</module>
-        <module>../kfcoding-framework</module>
         <module>../kfcoding-auth</module>
+        <module>../kfcoding-common</module>
+        <module>../kfcoding-control</module>
     </modules>
 
     <groupId>com.cuiyun</groupId>
@@ -28,8 +27,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
-        <relativePath/>
+        <version>2.0.0.RELEASE</version>
     </parent>
 
     <properties>
@@ -52,6 +50,7 @@
         <hutool.version>4.0.0</hutool.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <kfcoding.version>1.0-SNAPSHOT</kfcoding.version>
     </properties>
 
     <dependencies>
@@ -66,6 +65,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.cuiyun</groupId>
+                <artifactId>kfcoding-common</artifactId>
+                <version>${kfcoding.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cuiyun</groupId>
+                <artifactId>kfcoding-auth-common</artifactId>
+                <version>${kfcoding.version}</version>
+            </dependency>
             <!-- 引入spring cloud依赖 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

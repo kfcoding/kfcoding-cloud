@@ -1,0 +1,19 @@
+spring:
+    application:
+        name: kfcoding-monitor
+
+server:
+    port: 8764 #启动端口
+
+eureka:
+     instance:
+        preferIpAddress: true
+        statusPageUrlPath: /actuator/info
+        healthCheckUrlPath: /actuator/health
+     client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+          defaultZone: http://peer1:8761/eureka/
+
+

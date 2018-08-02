@@ -10,12 +10,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kfcoding-auth</artifactId>
+    <artifactId>kfcoding-control</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>kfcoding-auth-common</module>
-        <module>kfcoding-auth-server</module>
-        <module>kfcoding-auth-client</module>
+        <module>kfcoding-monitor</module>
+        <module>kfcoding-trace</module>
     </modules>
 
 

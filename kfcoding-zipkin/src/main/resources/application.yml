@@ -1,8 +1,0 @@
-server:
-  port: 9411
-spring:
-  application:
-    name: kfcoding-zipkin
-endpoints:
-  actuator:
-    sensitive: false
