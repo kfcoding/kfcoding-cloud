@@ -13,11 +13,11 @@
     <modules>
         <module>../kfcoding-eureka</module>
         <module>../kfcoding-gateway</module>
-        <module>../kfcoding-zipkin</module>
         <module>../kfcoding-auth</module>
         <module>../kfcoding-common</module>
         <module>../kfcoding-control</module>
         <module>../kfcoding-models</module>
+        <module>../kfcoding-framework</module>
     </modules>
 
     <groupId>com.cuiyun</groupId>
@@ -42,6 +42,7 @@
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <mybatis-plus.version>2.3</mybatis-plus.version>
         <springfox.version>2.6.1</springfox.version>
+        <spring.swagger.version>1.6.0.RELEASE</spring.swagger.version>
         <java-jwt.version>3.1.0</java-jwt.version>
         <mysql-connector-java.version>5.1.40</mysql-connector-java.version>
         <jackson-datatype.version>2.8.7</jackson-datatype.version>
@@ -51,6 +52,7 @@
         <hutool.version>4.0.0</hutool.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <beetl.version>2.7.15</beetl.version>
         <kfcoding.version>1.0-SNAPSHOT</kfcoding.version>
     </properties>
 
@@ -66,6 +68,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.cuiyun</groupId>
+                <artifactId>framework-cache</artifactId>
+                <version>${kfcoding.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.cuiyun</groupId>
                 <artifactId>kfcoding-interface</artifactId>
@@ -165,6 +172,11 @@
                 <version>${springfox.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${spring.swagger.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
@@ -183,6 +195,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ibeetl</groupId>
+                <artifactId>beetl</artifactId>
+                <version>${beetl.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
