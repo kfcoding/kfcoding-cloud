@@ -1,11 +1,11 @@
 package com.cuiyun.kfcoding.auth.service.impl;
 
+import com.cuiyun.kfcoding.api.vo.user.UserInfo;
 import com.cuiyun.kfcoding.auth.common.util.jwt.JWTInfo;
 import com.cuiyun.kfcoding.auth.feign.IUserService;
 import com.cuiyun.kfcoding.auth.service.AuthService;
 import com.cuiyun.kfcoding.auth.util.user.JwtAuthenticationRequest;
 import com.cuiyun.kfcoding.auth.util.user.JwtTokenUtil;
-import com.cuiyun.kfcoding.auth.vo.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

@@ -6,7 +6,7 @@ import com.cuiyun.kfcoding.common.base.biz.BaseBiz;
 import org.springframework.stereotype.Service;
 
 /**
- * @author ace
+ * @author bifenglin
  * @create 2017/12/30.
  */
 @Service

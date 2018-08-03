@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.auth.vo.user;
+package com.cuiyun.kfcoding.api.vo.user;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * ${DESCRIPTION}
  *
- * @author wanghaobin
+ * @author  bifenglin
  * @create 2017-06-21 8:12
  */
 public class UserInfo implements Serializable{

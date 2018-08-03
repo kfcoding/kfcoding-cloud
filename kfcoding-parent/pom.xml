@@ -17,6 +17,7 @@
         <module>../kfcoding-auth</module>
         <module>../kfcoding-common</module>
         <module>../kfcoding-control</module>
+        <module>../kfcoding-models</module>
     </modules>
 
     <groupId>com.cuiyun</groupId>
@@ -67,7 +68,17 @@
         <dependencies>
             <dependency>
                 <groupId>com.cuiyun</groupId>
+                <artifactId>kfcoding-interface</artifactId>
+                <version>${kfcoding.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cuiyun</groupId>
                 <artifactId>kfcoding-common</artifactId>
+                <version>${kfcoding.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cuiyun</groupId>
+                <artifactId>kfcoding-auth-client</artifactId>
                 <version>${kfcoding.version}</version>
             </dependency>
             <dependency>
