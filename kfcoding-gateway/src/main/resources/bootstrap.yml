@@ -1,36 +1,97 @@
 ## SERVER
 server:
-  port: 7291
+  port: 8765
 
 eureka:
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka/'
+    instance:
+        statusPageUrlPath: /actuator/info
+        healthCheckUrlPath: /actuator/health
+        home-page-url-path: /
+        # docker 部署开启
+#        prefer-ip-address: true
+#        ip-address: 127.0.0.1
+    client:
+        serviceUrl:
+            defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+
+
+#请求和响应GZIP压缩支持
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
 
 spring:
   application:
-    name: kfcoding-gateway
+      name: kfcoding-gateway
+  redis:
+      database: 2
+      host: 127.0.0.1
+      jedis:
+        pool:
+            max-active: 20
+  rabbitmq:
+      host: ${RABBIT_MQ_HOST:localhost}
+      port:  ${RABBIT_MQ_PORT:5672}
+      username: guest
+      password: guest
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
   cloud:
-      loadbalancer:
-        retry:
-          enabled: true
-  zipkin:
-    base-url: http://localhost:9411/
+    gateway:
+      locator:
+        enabled: true
+      routes:
+      # =====================================
+      - id: kfcoding-auth
+        uri: lb://ace-auth
+        order: 8000
+        predicates:
+        - Path=/api/auth/**
+        filters:
+        - StripPrefix=2
+      - id: kfcoding-basic
+        uri: lb://kfcoding-basic
+        order: 8001
+        predicates:
+        - Path=/api/basic/**
+        filters:
+        - StripPrefix=2
 
-endpoints:
-  actuator:
-    sensitive: false
+logging:
+  level:
+    com.cuiyun.kfcoding.gateway: debug
 
-ribbon:
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 3
-  OkToRetryOnAllOperations: true
-  ConnectTimeout: 1500
-  ReadTimeout: 2000
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 1500
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  security:
+    enabled: false
+
+
+gate:
+  ignore:
+    startWith: /auth/jwt
+
+
+auth:
+  serviceId: kfcoding-auth
+  user:
+    token-header: Authorization
+  client:
+    token-header: x-client-token
+    id: kfcoding-gate  #不填则默认读取spring.application.name
+    secret: 123456
