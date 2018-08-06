@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>kfcoding-interface</module>
-        <module>kfcoding-user</module>
+        <module>kfcoding-basic</module>
         <module>kfcoding-generator</module>
     </modules>
 

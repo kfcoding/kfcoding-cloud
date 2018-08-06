@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.user;
+package com.cuiyun.kfcoding.basic;
 
 import com.cuiyun.kfcoding.auth.client.EnableKfcodingAuthClient;
 import com.cuiyun.kfcoding.framework.cache.EnableKfcodingCache;
@@ -17,11 +17,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @EnableEurekaClient
 @EnableCircuitBreaker
-@EnableFeignClients({"com.cuiyun.kfcoding.auth.client.feign"})
+@EnableFeignClients({"com.cuiyun.kfcoding.auth.client.feign", "com.cuiyun.kfcoding.basic.feign"})
 @EnableScheduling
 @EnableKfcodingAuthClient
 @EnableTransactionManagement
 @EnableKfcodingCache
 @SpringBootApplication
-public class UserBootstrap {
+public class BasicBootstrap {
+
 }

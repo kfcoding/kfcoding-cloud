@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.cuiyun.kfcoding.common.base.biz.BaseBiz;
 import com.cuiyun.kfcoding.common.context.BaseContextHandler;
 import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class BaseController<Biz extends BaseBiz,Entity> {
 
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation("添加对象")
     public ObjectRestResponse<Entity> add(@RequestBody Entity entity){
         baseBiz.insert(entity);
         return new ObjectRestResponse<Entity>();
@@ -33,6 +35,7 @@ public class BaseController<Biz extends BaseBiz,Entity> {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation("根据id获取对象")
     public ObjectRestResponse<Entity> get(@PathVariable int id){
         ObjectRestResponse<Entity> entityObjectRestResponse = new ObjectRestResponse<>();
         Object o = baseBiz.selectById(id);
@@ -42,12 +45,15 @@ public class BaseController<Biz extends BaseBiz,Entity> {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     @ResponseBody
+    @ApiOperation("根据id修改对象")
     public ObjectRestResponse<Entity> update(@RequestBody Entity entity){
         baseBiz.updateById(entity);
         return new ObjectRestResponse<Entity>();
     }
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseBody
+    @ApiOperation("根据id删除对象")
+
     public ObjectRestResponse<Entity> remove(@PathVariable int id){
         baseBiz.deleteById(id);
         return new ObjectRestResponse<Entity>();
@@ -55,6 +61,7 @@ public class BaseController<Biz extends BaseBiz,Entity> {
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation("获取所有对象")
     public List<Entity> all(){
         return baseBiz.selectList(new EntityWrapper());
     }

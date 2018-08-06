@@ -42,15 +42,15 @@ public class ServiceAuthRestInterceptor extends HandlerInterceptorAdapter {
         if (annotation == null) {
             annotation = handlerMethod.getMethodAnnotation(IgnoreClientToken.class);
         }
-        if(annotation!=null) {
+        if (annotation != null) {
             return super.preHandle(request, response, handler);
         }
 
         String token = request.getHeader(serviceAuthConfig.getTokenHeader());
         IJWTInfo infoFromToken = serviceAuthUtil.getInfoFromToken(token);
         String uniqueName = infoFromToken.getUniqueName();
-        for(String client:serviceAuthUtil.getAllowedClient()){
-            if(client.equals(uniqueName)){
+        for (String client : serviceAuthUtil.getAllowedClient()) {
+            if (client.equals(uniqueName)) {
                 return super.preHandle(request, response, handler);
             }
         }

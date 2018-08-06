@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author  bifenglin
  * @create 2017-06-21 8:11
  */
-@FeignClient(value = "ace-admin",configuration = FeignConfig.class)
+@FeignClient(value = "kfcoding-basic",configuration = FeignConfig.class)
 public interface IUserService {
   @RequestMapping(value = "/api/user/validate", method = RequestMethod.POST)
-  public UserInfo validate(@RequestBody JwtAuthenticationRequest authenticationRequest);
+  UserInfo validate(@RequestBody JwtAuthenticationRequest authenticationRequest);
 }

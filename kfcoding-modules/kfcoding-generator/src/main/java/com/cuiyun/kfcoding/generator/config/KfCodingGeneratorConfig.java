@@ -26,23 +26,23 @@ public class KfCodingGeneratorConfig extends AbstractGeneratorConfig {
         dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
         dataSourceConfig.setUsername("root");
         dataSourceConfig.setPassword("123456");
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/kfcoding_user_dev?characterEncoding=utf8");
+        dataSourceConfig.setUrl("jdbc:mysql://localhost/kfcoding_user_dev?characterEncoding=utf8");
     }
 
     protected void strategyConfig() {
-        strategyConfig.setTablePrefix(new String[]{});// 此处可以修改为您的表前缀
+        strategyConfig.setTablePrefix(new String[]{"user_"});// 此处可以修改为您的表前缀
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
     }
 
     protected void packageConfig() {
         packageConfig.setParent(null);
-        packageConfig.setEntity("com.cuiyun.kfcoding.user.model");
-        packageConfig.setMapper("com.cuiyun.kfcoding.user.dao");
-        packageConfig.setXml("com.cuiyun.kfcoding.user.dao.mapping");
+        packageConfig.setEntity("com.cuiyun.kfcoding.basic.model");
+        packageConfig.setMapper("com.cuiyun.kfcoding.basic.dao");
+        packageConfig.setXml("com.cuiyun.kfcoding.basic.dao.mapping");
     }
 
     protected void contextConfig() {
-        contextConfig.setProPackage("com.cuiyun.kfcoding.user");
+        contextConfig.setProPackage("com.cuiyun.kfcoding.basic");
         contextConfig.setCoreBasePackage("com.cuiyun.kfcoding.core");
         contextConfig.setModuleName("user");
         contextConfig.setProjectPath("/Users/maple/Documents/kfcoding/kfcoding");//写自己项目的绝对路径

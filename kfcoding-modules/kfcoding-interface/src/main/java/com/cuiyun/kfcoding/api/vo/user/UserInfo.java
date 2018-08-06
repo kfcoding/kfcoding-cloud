@@ -11,20 +11,29 @@ import java.util.Date;
  */
 public class UserInfo implements Serializable{
     public String id;
-    public String username;
+    public String account;
+    public String email;
     public String password;
     public String name;
     private String description;
 
-    public Date getUpdTime() {
-        return updTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    private Date updTime;
+    private Date updateTime;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getId() {
         return id;
@@ -34,12 +43,12 @@ public class UserInfo implements Serializable{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPassword() {

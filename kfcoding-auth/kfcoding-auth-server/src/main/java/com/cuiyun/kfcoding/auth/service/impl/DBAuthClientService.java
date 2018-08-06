@@ -3,7 +3,7 @@ package com.cuiyun.kfcoding.auth.service.impl;
 import com.cuiyun.kfcoding.auth.bean.ClientInfo;
 import com.cuiyun.kfcoding.auth.exception.BizExceptionEnum;
 import com.cuiyun.kfcoding.auth.dao.ClientMapper;
-import com.cuiyun.kfcoding.auth.entity.Client;
+import com.cuiyun.kfcoding.auth.model.Client;
 import com.cuiyun.kfcoding.auth.service.AuthClientService;
 import com.cuiyun.kfcoding.auth.util.client.ClientTokenUtil;
 import com.cuiyun.kfcoding.common.exception.auth.ClientInvalidException;

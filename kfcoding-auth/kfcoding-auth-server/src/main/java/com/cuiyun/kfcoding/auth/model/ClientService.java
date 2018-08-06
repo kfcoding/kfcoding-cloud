@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.auth.entity;
+package com.cuiyun.kfcoding.auth.model;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;

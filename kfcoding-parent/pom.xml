@@ -16,7 +16,7 @@
         <module>../kfcoding-auth</module>
         <module>../kfcoding-common</module>
         <module>../kfcoding-control</module>
-        <module>../kfcoding-models</module>
+        <module>../kfcoding-modules</module>
         <module>../kfcoding-framework</module>
     </modules>
 

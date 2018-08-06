@@ -14,7 +14,7 @@ public class KfCodingCodeGenerator {
     public static void main(String[] args) {
 
         /**
-         *  生成mapper service entity
+         *  生成mapper service model
          */
         KfCodingGeneratorConfig kfCodingGeneratorConfig = new KfCodingGeneratorConfig();
         kfCodingGeneratorConfig.doMpGeneration();

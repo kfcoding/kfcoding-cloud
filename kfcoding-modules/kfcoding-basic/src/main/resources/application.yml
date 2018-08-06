@@ -4,7 +4,7 @@ logging:
       com.cuiyun.kfcoding: DEBUG
 spring:
   application:
-      name: kfcoding-user
+      name: kfcoding-basic
   datasource:
       name: test
       url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/ag_admin_v1?useUnicode=true&characterEncoding=UTF8
@@ -43,9 +43,9 @@ sample:
 
 
 mybatis-plus:
-  mapper-locations: classpath*:com/cuiyun/kfcoding/user/**/mapping/*.xml
-  typeAliasesPackage: com.cuiyun.kfcoding.user.modular.*.model
-  typeEnumsPackage: com.cuiyun.kfcoding.user.modular.*.enums
+  mapper-locations: classpath*:com/cuiyun/kfcoding/basic/**/mapping/*.xml
+  typeAliasesPackage: com.cuiyun.kfcoding.basic.*.model
+  typeEnumsPackage: com.cuiyun.kfcoding.basic.*.enums
   global-config:
     id-type: 3  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
@@ -109,19 +109,19 @@ hystrix:
 # 配置swagger
 swagger:
     enabled: true
-    base-package: com.cuiyun.kfcdoing.user
-    title: kfcoding-user
+    base-package: com.cuiyun.kfcdoing.basic
+    title: kfcoding-basic
     version: 1.0.0.SNAPSHOT
-    description: 用户模块服务
+    description: 基础模块服务
     contact:
-        name: user
+        name: basic
 
 auth:
   serviceId: kfcoding-auth
   user:
     token-header: Authorization
   client:
-    id: kfcoding-user
+    id: kfcoding-basic
     secret: 123456
     token-header: x-client-token
 
