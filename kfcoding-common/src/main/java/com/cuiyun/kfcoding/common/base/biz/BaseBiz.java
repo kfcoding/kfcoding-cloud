@@ -9,6 +9,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
  * @author: maple
  * @create: 2018-08-01 21:35
  **/
-public abstract class BaseBiz<T, M extends BaseMapper<T>> extends ServiceImpl<M, T> {
+public abstract class BaseBiz<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
 
 }

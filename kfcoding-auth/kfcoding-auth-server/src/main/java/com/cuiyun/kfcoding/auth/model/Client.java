@@ -1,15 +1,17 @@
 package com.cuiyun.kfcoding.auth.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @TableName("auth_client")
-public class Client {
-    @TableId(value = "id", type = IdType.UUID)
+public class Client extends Model<Client>{
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String code;
@@ -368,5 +370,10 @@ public class Client {
      */
     public void setAttr8(String attr8) {
         this.attr8 = attr8;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }

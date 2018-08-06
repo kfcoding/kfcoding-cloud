@@ -19,7 +19,7 @@ import java.util.List;
  * @create: 2018-08-02 17:17
  **/
 @Service
-public class ClientBiz extends BaseBiz<Client, ClientMapper>{
+public class ClientBiz extends BaseBiz<ClientMapper, Client>{
     @Autowired
     private ClientServiceMapper clientServiceMapper;
     @Autowired

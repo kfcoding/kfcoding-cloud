@@ -2,6 +2,8 @@ package com.cuiyun.kfcoding.auth.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.cuiyun.kfcoding.auth.model.Client;
+import org.apache.ibatis.annotations.ResultType;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 

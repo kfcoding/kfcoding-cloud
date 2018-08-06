@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cuiyun.kfcoding.auth.dao.ClientMapper" >
   <resultMap id="BaseResultMap" type="com.cuiyun.kfcoding.auth.model.Client" >
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="secret" property="secret" jdbcType="VARCHAR" />
@@ -48,4 +45,5 @@
     WHERE
     gcs.client_id = #{clientId}
   </select>
+
 </mapper>

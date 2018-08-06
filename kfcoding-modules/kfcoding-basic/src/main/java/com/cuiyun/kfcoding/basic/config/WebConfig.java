@@ -18,7 +18,7 @@ import java.util.Collections;
  * @author: maple
  * @create: 2018-08-06 11:48
  **/
-@Configuration("admimWebConfig")
+@Configuration("basicWebConfig")
 @Primary
 public class WebConfig implements WebMvcConfigurer {
     @Bean

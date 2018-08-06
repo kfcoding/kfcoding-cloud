@@ -11,3 +11,8 @@ eureka:
 spring:
   application:
     name: kfcoding-ereka
+
+logging:
+  level:
+    root: info
+    com.cuiyun: debug

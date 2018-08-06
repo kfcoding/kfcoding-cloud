@@ -7,7 +7,7 @@ spring:
       name: kfcoding-basic
   datasource:
       name: test
-      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/ag_admin_v1?useUnicode=true&characterEncoding=UTF8
+      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/kfcoding_user_dev?useUnicode=true&characterEncoding=UTF8
       username: root
       password: 123456
       # 使用druid数据源
@@ -43,9 +43,9 @@ sample:
 
 
 mybatis-plus:
-  mapper-locations: classpath*:com/cuiyun/kfcoding/basic/**/mapping/*.xml
-  typeAliasesPackage: com.cuiyun.kfcoding.basic.*.model
-  typeEnumsPackage: com.cuiyun.kfcoding.basic.*.enums
+  mapper-locations: classpath*:com/cuiyun/kfcoding/basic/dao/mapping/*.xml
+  typeAliasesPackage: com.cuiyun.kfcoding.basic.model
+  typeEnumsPackage: com.cuiyun.kfcoding.basic.enums
   global-config:
     id-type: 3  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false

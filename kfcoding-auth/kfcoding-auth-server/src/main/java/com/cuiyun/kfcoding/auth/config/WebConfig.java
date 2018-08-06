@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author: maple
  * @create: 2018-08-02 16:19
  **/
-@Configuration("webConfig")
+@Configuration("basicWebConfig")
 @Primary
 public class WebConfig implements WebMvcConfigurer{
     @Bean

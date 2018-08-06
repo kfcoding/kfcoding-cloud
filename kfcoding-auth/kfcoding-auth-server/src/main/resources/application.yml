@@ -12,7 +12,6 @@ spring:
         pool:
         max-active: 20
     datasource:
-      name: test
       url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/kfcoding_auth_test?useUnicode=true&characterEncoding=UTF8
       username: root
       password: 123456
@@ -45,11 +44,11 @@ spring:
 
 
 mybatis-plus:
-  mapper-locations: classpath*:com/cuiyun/kfcoding/common/**/mapping/*.xml
-  typeAliasesPackage: com.cuiyun.kfcoding.common.modular.*.model
-  typeEnumsPackage: com.cuiyun.kfcoding.common.modular.*.enums
+  mapper-locations: classpath*:com/cuiyun/kfcoding/auth/dao/**/*.xml
+  typeAliasesPackage: com.cuiyun.kfcoding.auth.model
+  typeEnumsPackage: com.cuiyun.kfcoding.auth.enums
   global-config:
-    id-type: 3  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
     refresh-mapper: true
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector #逻辑删除
@@ -121,5 +120,4 @@ client:
 
 logging:
     level:
-#        tk.mybatis: DEBUG
-        com.github.wxiaoqi.security.auth: DEBUG
+        com.cuiyun.kfcoding.auth: DEBUG

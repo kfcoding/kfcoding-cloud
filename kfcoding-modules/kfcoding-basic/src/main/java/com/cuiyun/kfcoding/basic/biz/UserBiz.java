@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  **/
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserBiz extends BaseBiz<User, UserMapper>{
+public class UserBiz extends BaseBiz<UserMapper, User>{
 
     public UserInfo validate(String credenceName, String password) {
         User user = new User();
