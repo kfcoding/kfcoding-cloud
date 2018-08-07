@@ -3,10 +3,7 @@ package com.cuiyun.kfcoding.basic.rpc;
 import com.cuiyun.kfcoding.api.vo.user.UserInfo;
 import com.cuiyun.kfcoding.basic.biz.UserBiz;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -16,6 +13,7 @@ import java.util.Map;
  * @author: maple
  * @create: 2018-08-06 12:32
  **/
+@RestController
 @RequestMapping("api/users")
 public class UserRest {
     @Autowired

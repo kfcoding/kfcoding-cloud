@@ -1,6 +1,5 @@
 package com.cuiyun.kfcoding.auth.client.config;
 
-import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 @ComponentScan({"com.cuiyun.kfcoding.auth.client","com.cuiyun.kfcoding.auth.common.event"})
-@RemoteApplicationEventScan(basePackages = "com.cuiyun.kfcoding.auth.common.event")
 public class AutoConfig {
     @Bean
     ServiceAuthConfig getServiceAuthConfig(){

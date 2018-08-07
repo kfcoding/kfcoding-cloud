@@ -1,7 +1,7 @@
-package com.cuiyun.kfcoding.gateway.fallback;
+package com.cuiyun.kfcoding.gate.fallback;
 
 import com.cuiyun.kfcoding.api.vo.authority.PermissionInfo;
-import com.cuiyun.kfcoding.gateway.feign.IUserService;
+import com.cuiyun.kfcoding.gate.feign.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +12,7 @@ import java.util.List;
  * @program: kfcoding-cloud
  * @description:
  * @author: maple
- * @create: 2018-08-03 12:31
+ * @create: 2018-08-07 20:05
  **/
 @Service
 @Slf4j

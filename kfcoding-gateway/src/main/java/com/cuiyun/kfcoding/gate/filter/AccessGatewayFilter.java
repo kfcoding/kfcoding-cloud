@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.gateway.filter;
+package com.cuiyun.kfcoding.gate.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cuiyun.kfcoding.api.vo.authority.PermissionInfo;
@@ -11,9 +11,9 @@ import com.cuiyun.kfcoding.auth.common.util.jwt.IJWTInfo;
 import com.cuiyun.kfcoding.common.context.BaseContextHandler;
 import com.cuiyun.kfcoding.common.msg.BaseResponse;
 import com.cuiyun.kfcoding.common.msg.auth.TokenForbiddenResponse;
-import com.cuiyun.kfcoding.gateway.feign.ILogService;
-import com.cuiyun.kfcoding.gateway.feign.IUserService;
-import com.cuiyun.kfcoding.gateway.utils.DBLog;
+import com.cuiyun.kfcoding.gate.feign.ILogService;
+import com.cuiyun.kfcoding.gate.feign.IUserService;
+import com.cuiyun.kfcoding.gate.utils.DBLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +47,7 @@ import java.util.stream.Stream;
  * @program: kfcoding-cloud
  * @description:
  * @author: maple
- * @create: 2018-08-03 12:31
+ * @create: 2018-08-07 20:05
  **/
 @Configuration
 @Slf4j
@@ -108,16 +108,16 @@ public class AccessGatewayFilter implements GlobalFilter {
             log.error("用户Token过期异常", e);
             return getVoidMono(serverWebExchange, new TokenForbiddenResponse("User Token Forbidden or Expired!"));
         }
-        List<PermissionInfo> permissionIfs = userService.getAllPermissionInfo();
-        // 判断资源是否启用权限约束
-        Stream<PermissionInfo> stream = getPermissionIfs(requestUri, method, permissionIfs);
-        List<PermissionInfo> result = stream.collect(Collectors.toList());
-        PermissionInfo[] permissions = result.toArray(new PermissionInfo[]{});
-        if (permissions.length > 0) {
-            if (checkUserPermission(permissions, serverWebExchange, user)) {
-                return getVoidMono(serverWebExchange, new TokenForbiddenResponse("User Forbidden!Does not has Permission!"));
-            }
-        }
+//        List<PermissionInfo> permissionIfs = userService.getAllPermissionInfo();
+//        // 判断资源是否启用权限约束
+//        Stream<PermissionInfo> stream = getPermissionIfs(requestUri, method, permissionIfs);
+//        List<PermissionInfo> result = stream.collect(Collectors.toList());
+//        PermissionInfo[] permissions = result.toArray(new PermissionInfo[]{});
+//        if (permissions.length > 0) {
+//            if (checkUserPermission(permissions, serverWebExchange, user)) {
+//                return getVoidMono(serverWebExchange, new TokenForbiddenResponse("User Forbidden!Does not has Permission!"));
+//            }
+//        }
         // 申请客户端密钥头
         mutate.header(serviceAuthConfig.getTokenHeader(), serviceAuthUtil.getClientToken());
         ServerHttpRequest build = mutate.build();

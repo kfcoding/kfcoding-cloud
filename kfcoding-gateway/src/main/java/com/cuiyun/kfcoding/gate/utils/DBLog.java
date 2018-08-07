@@ -1,7 +1,7 @@
-package com.cuiyun.kfcoding.gateway.utils;
+package com.cuiyun.kfcoding.gate.utils;
 
 import com.cuiyun.kfcoding.api.vo.log.LogInfo;
-import com.cuiyun.kfcoding.gateway.feign.ILogService;
+import com.cuiyun.kfcoding.gate.feign.ILogService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @program: kfcoding-cloud
  * @description:
  * @author: maple
- * @create: 2018-08-03 12:31
+ * @create: 2018-08-07 20:05
  **/
 @Slf4j
 public class DBLog extends Thread {

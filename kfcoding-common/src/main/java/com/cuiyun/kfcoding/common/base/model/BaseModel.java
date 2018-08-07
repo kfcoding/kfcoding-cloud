@@ -34,12 +34,12 @@ public abstract class BaseModel<T extends BaseModel> extends Model<T> {
 
     @Version
     @JSONField(serialize=false)
-    protected Long version = 1L;
+    protected Long version ;
 
     @TableLogic
     @TableField("is_del")
     @JSONField(serialize=false)
-    protected Integer isDel = 0;
+    protected Integer isDel ;
 
     @Override
     protected Serializable pkVal() {

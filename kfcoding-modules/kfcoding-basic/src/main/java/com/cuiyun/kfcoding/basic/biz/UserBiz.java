@@ -30,7 +30,8 @@ public class UserBiz extends BaseBiz<UserMapper, User>{
             user.setAccount(credenceName);
         }
         user.setPassword(password);
-        Assert.isNull(this.baseMapper.selectOne(user), BizExceptionEnum.USER_NULL.getMessage());
+        user = this.baseMapper.selectOne(user);
+        Assert.notNull(user, BizExceptionEnum.USER_NULL.getMessage());
         UserInfo userInfo = new UserInfo();
         BeanUtil.copyProperties(user, userInfo);
         return userInfo;

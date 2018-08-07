@@ -36,7 +36,7 @@ public class Client extends Model<Client>{
     @TableField(value = "crt_host")
     private String crtHost;
 
-    @TableField(value = "crt_host")
+    @TableField(value = "upd_time")
     private Date updTime;
 
     @TableField(value = "upd_user")

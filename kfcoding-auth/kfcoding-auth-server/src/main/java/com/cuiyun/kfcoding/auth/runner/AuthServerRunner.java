@@ -21,10 +21,10 @@ import java.util.Map;
 public class AuthServerRunner implements CommandLineRunner {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-    private static final String REDIS_USER_PRI_KEY = "KF:AUTH:JWT:PRI";
-    private static final String REDIS_USER_PUB_KEY = "KF:AUTH:JWT:PRI";
-    private static final String REDIS_SERVICE_PRI_KEY = "KF:AUTH:CLIENT:PRI";
-    private static final String REDIS_SERVICE_PUB_KEY = "KF:AUTH:CLIENT:PUB";
+    private static final String REDIS_USER_PRI_KEY = "AG:AUTH:JWT:PRI";
+    private static final String REDIS_USER_PUB_KEY = "AG:AUTH:JWT:PRI";
+    private static final String REDIS_SERVICE_PRI_KEY = "AG:AUTH:CLIENT:PRI";
+    private static final String REDIS_SERVICE_PUB_KEY = "AG:AUTH:CLIENT:PUB";
 
     @Autowired
     private KeyConfig keyConfig;

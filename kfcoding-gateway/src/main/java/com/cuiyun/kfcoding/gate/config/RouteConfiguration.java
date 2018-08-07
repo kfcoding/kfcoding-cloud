@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.gateway.config;
+package com.cuiyun.kfcoding.gate.config;
 
 
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @program: kfcoding-cloud
  * @description:
  * @author: maple
- * @create: 2018-08-03 12:31
+ * @create: 2018-08-07 20:05
  **/
 @Configuration
 public class RouteConfiguration {
