@@ -36,7 +36,7 @@ public class BaseController<Biz extends BaseBiz,Entity> {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("根据id获取对象")
-    public ObjectRestResponse<Entity> get(@PathVariable int id){
+    public ObjectRestResponse<Entity> get(@PathVariable String id){
         ObjectRestResponse<Entity> entityObjectRestResponse = new ObjectRestResponse<>();
         Object o = baseBiz.selectById(id);
         entityObjectRestResponse.data((Entity)o);
@@ -53,8 +53,7 @@ public class BaseController<Biz extends BaseBiz,Entity> {
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @ApiOperation("根据id删除对象")
-
-    public ObjectRestResponse<Entity> remove(@PathVariable int id){
+    public ObjectRestResponse<Entity> remove(@PathVariable String id){
         baseBiz.deleteById(id);
         return new ObjectRestResponse<Entity>();
     }

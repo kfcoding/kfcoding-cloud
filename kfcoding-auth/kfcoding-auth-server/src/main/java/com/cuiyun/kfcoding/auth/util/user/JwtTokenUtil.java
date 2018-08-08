@@ -29,6 +29,4 @@ public class JwtTokenUtil {
     public IJWTInfo getInfoFromToken(String token) throws Exception {
         return JWTHelper.getInfoFromToken(token, keyConfig.getUserPubKey());
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.cuiyun.kfcoding.common.config;
+package com.cuiyun.kfcoding.basic.config;
 
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;

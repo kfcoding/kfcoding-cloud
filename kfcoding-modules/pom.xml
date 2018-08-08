@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kfcoding-models</artifactId>
+    <artifactId>kfcoding-modules</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>kfcoding-interface</module>
