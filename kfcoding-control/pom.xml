@@ -14,7 +14,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>kfcoding-monitor</module>
-        <module>kfcoding-trace</module>
     </modules>
 
 

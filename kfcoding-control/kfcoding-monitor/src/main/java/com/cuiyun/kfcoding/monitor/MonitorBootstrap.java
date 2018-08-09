@@ -1,14 +1,14 @@
 package com.cuiyun.kfcoding.monitor;
 
-import de.codecentric.boot.admin.config.EnableAdminServer;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
- * ${DESCRIPTION}
+ * @Description admin启动类
  *
- * @author wanghaobin
+ * @author maple
  * @create 2017-05-25 12:44
  */
 @SpringBootApplication
