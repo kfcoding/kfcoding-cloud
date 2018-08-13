@@ -1,7 +1,7 @@
 package com.cuiyun.kfcoding.auth.controller;
 
+import com.cuiyun.kfcoding.api.vo.authority.AuthRequest;
 import com.cuiyun.kfcoding.auth.service.AuthService;
-import com.cuiyun.kfcoding.auth.util.user.JwtAuthenticationRequest;
 import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,9 @@ public class AuthController {
     private AuthService authService;
 
     @RequestMapping(value = "token", method = RequestMethod.POST)
-    public ObjectRestResponse<String> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws Exception {
-        log.info(authenticationRequest.getCredenceName() + " require logging");
-        final String token = authService.login(authenticationRequest);
+    public ObjectRestResponse<String> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
+        log.info(authRequest.getCredenceName() + " require logging");
+        final String token = authService.login(authRequest);
         return new ObjectRestResponse<String>().data(token);
     }
 

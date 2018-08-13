@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>kfcoding-parent</artifactId>
+        <artifactId>kfcoding-control</artifactId>
         <groupId>com.cuiyun</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../kfcoding-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kfcoding-control</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>kfcoding-monitor</module>
-        <module>kfcoding-trace</module>
-    </modules>
+    <artifactId>kfcoding-trace</artifactId>
 
 
 </project>

@@ -1,5 +1,6 @@
 package com.cuiyun.kfcoding.auth.service.impl;
 
+import com.cuiyun.kfcoding.api.vo.authority.AuthRequest;
 import com.cuiyun.kfcoding.api.vo.user.UserInfo;
 import com.cuiyun.kfcoding.auth.common.util.jwt.JWTInfo;
 import com.cuiyun.kfcoding.auth.feign.IUserService;
@@ -25,8 +26,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(JwtAuthenticationRequest authenticationRequest) throws Exception {
-        UserInfo info = userService.validate(authenticationRequest);
+    public String login(AuthRequest authRequest) throws Exception {
+        UserInfo info = userService.validate(authRequest);
         String token = "";
         if (!StringUtils.isEmpty(info.getId())) {
             token = jwtTokenUtil.generateToken(new JWTInfo(info.getAccount(), info.getId() + "", info.getName()));

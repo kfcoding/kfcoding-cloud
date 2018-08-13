@@ -1,7 +1,10 @@
 package com.cuiyun.kfcoding.basic.rpc;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.cuiyun.kfcoding.api.vo.authority.AuthRequest;
 import com.cuiyun.kfcoding.api.vo.user.UserInfo;
 import com.cuiyun.kfcoding.basic.biz.UserBiz;
+import com.cuiyun.kfcoding.basic.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +24,11 @@ public class UserRest {
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public @ResponseBody
-    UserInfo validate(@RequestBody Map<String,String> body){
-        return userBiz.validate(body.get("credenceName"),body.get("password"));
+    UserInfo validate(@RequestBody AuthRequest authRequest){
+        User user = userBiz.validate(authRequest);
+        UserInfo userInfo = new UserInfo();
+        BeanUtil.copyProperties(user, userInfo);
+        return userInfo;
     }
+
 }

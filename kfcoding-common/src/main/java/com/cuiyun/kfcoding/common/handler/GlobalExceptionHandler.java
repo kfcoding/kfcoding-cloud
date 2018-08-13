@@ -1,6 +1,8 @@
 package com.cuiyun.kfcoding.common.handler;
 
 import com.cuiyun.kfcoding.common.exception.KfCodingException;
+import com.cuiyun.kfcoding.common.exception.auth.ClientTokenException;
+import com.cuiyun.kfcoding.common.exception.auth.UserTokenException;
 import com.cuiyun.kfcoding.common.msg.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @program: kfcoding-cloud
@@ -33,18 +37,18 @@ public class GlobalExceptionHandler {
         logger.error(ex.getMessage(),ex);
         return new BaseResponse(500, ex.getMessage());
     }
-//
-//    @ExceptionHandler(ClientTokenException.class)
-//    public BaseResponse clientTokenExceptionHandler(HttpServletResponse response, ClientTokenException ex) {
-//        response.setStatus(403);
-//        logger.error(ex.getMessage(),ex);
-//        return new BaseResponse(ex.getStatus(), ex.getMessage());
-//    }
-//
-//    @ExceptionHandler(UserTokenException.class)
-//    public BaseResponse userTokenExceptionHandler(HttpServletResponse response, UserTokenException ex) {
-//        response.setStatus(401);
-//        logger.error(ex.getMessage(),ex);
-//        return new BaseResponse(ex.getStatus(), ex.getMessage());
-//    }
+
+    @ExceptionHandler(ClientTokenException.class)
+    public BaseResponse clientTokenExceptionHandler(HttpServletResponse response, ClientTokenException ex) {
+        response.setStatus(403);
+        logger.error(ex.getMessage(),ex);
+        return new BaseResponse(ex.getCode(), ex.getMessage());
+    }
+
+    @ExceptionHandler(UserTokenException.class)
+    public BaseResponse userTokenExceptionHandler(HttpServletResponse response, UserTokenException ex) {
+        response.setStatus(401);
+        logger.error(ex.getMessage(),ex);
+        return new BaseResponse(ex.getCode(), ex.getMessage());
+    }
 }

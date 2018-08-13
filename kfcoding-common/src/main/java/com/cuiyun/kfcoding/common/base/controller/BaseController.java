@@ -7,6 +7,7 @@ import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,9 @@ public class BaseController<Biz extends BaseBiz,Entity> {
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("添加对象")
-    public ObjectRestResponse<Entity> add(@RequestBody Entity entity){
+    public ResponseEntity add(@RequestBody Entity entity){
         baseBiz.insert(entity);
-        return new ObjectRestResponse<Entity>();
+        return ResponseEntity.ok(new ObjectRestResponse<Entity>());
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)

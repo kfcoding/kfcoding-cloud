@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author maple
  * @since 2018-08-06
  */
-@TableName("user_user")
+@TableName("basic_user")
 public class User extends BaseModel<User> {
 
     private static final long serialVersionUID = 1L;
