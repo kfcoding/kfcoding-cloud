@@ -68,6 +68,13 @@ spring:
         - Path=/api/basic/**
         filters:
         - StripPrefix=2
+      - id: kfcoding-workspace
+        uri: lb://kfcoding-workspace
+        order: 8001
+        predicates:
+        - Path=/api/workspace/**
+        filters:
+        - StripPrefix=2
 
 logging:
   level:

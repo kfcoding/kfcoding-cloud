@@ -30,16 +30,17 @@ public abstract class BaseModel<T extends BaseModel> extends Model<T> {
     protected Date updateTime;
 
     @TableField(value = "delete_time")
+    @JSONField(serialize = false)
     protected Date deleteTime;
 
     @Version
     @JSONField(serialize=false)
-    protected Long version ;
+    protected Long version = 1L;
 
     @TableLogic
     @TableField("is_del")
     @JSONField(serialize=false)
-    protected Integer isDel ;
+    protected Integer isDel = 0;
 
     @Override
     protected Serializable pkVal() {

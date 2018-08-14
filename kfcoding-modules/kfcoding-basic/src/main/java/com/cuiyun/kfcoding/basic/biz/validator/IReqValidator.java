@@ -15,7 +15,7 @@ import java.security.NoSuchProviderException;
  * <p>如果想拓展验证方法只需实现这个接口,然后在AuthenticationRestController类中注意相应实现的本接口的类即可</p>
  *
  * @author maple
- * @date 2018-08-23 11:48
+ * @date 2018-08-3 11:48
  */
 public interface IReqValidator {
 

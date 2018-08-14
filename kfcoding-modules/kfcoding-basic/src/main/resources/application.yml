@@ -1,15 +1,15 @@
 logging:
   level:
       root: info
-      com.cuiyun.kfcoding: DEBUG
+      com.cuiyun.kfcoding.workspace: DEBUG
 spring:
   application:
       name: kfcoding-basic
   datasource:
       name: test
-      url: jdbc:mysql://${MYSQL_HOST:localhost:${MYSQL_PORT:3306}/kfcoding_basic_dev?useUnicode=true&characterEncoding=UTF8
+      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/kfcoding_basic_dev?useUnicode=true&characterEncoding=UTF8
       username: root
-      password: 123
+      password: 123456
       # 使用druid数据源
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.jdbc.Driver
@@ -61,7 +61,7 @@ mybatis-plus:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
 
 server:
-    port: 8762
+    port: 8081
 
 
 eureka:
@@ -109,12 +109,12 @@ hystrix:
 # 配置swagger
 swagger:
     enabled: true
-    base-package: com.cuiyun.kfcdoing.basic
+#    base-package: com.cuiyun.kfcdoing.basic.*
     title: kfcoding-basic
     version: 1.0.0.SNAPSHOT
     description: 基础模块服务
     contact:
-        name: basic
+        name: cuiyun
 
 auth:
   serviceId: kfcoding-auth
@@ -124,13 +124,12 @@ auth:
     id: kfcoding-basic
     secret: 123456
     token-header: x-client-token
-  token-url: api/auth/token
 
 kfcoding:
   oauth:
     github:
-      clientId: 1eb243e826a117b3e138
-      clientSecret: 9b61bf3dc43cf9bb42874ece67e98493691c1937
+      clientId:
+      clientSecret:
 
 #redis-cache 相关
 redis:

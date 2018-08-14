@@ -5,11 +5,12 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.cuiyun.kfcoding.api.vo.authority.AuthRequest;
-import com.cuiyun.kfcoding.api.vo.user.UserInfo;
 import com.cuiyun.kfcoding.basic.biz.validator.impl.DbValidator;
 import com.cuiyun.kfcoding.basic.biz.validator.impl.GithubValidator;
 import com.cuiyun.kfcoding.basic.dao.UserMapper;
+import com.cuiyun.kfcoding.basic.enums.BookStatusEnum;
 import com.cuiyun.kfcoding.basic.exception.BizExceptionEnum;
+import com.cuiyun.kfcoding.basic.model.Book;
 import com.cuiyun.kfcoding.basic.model.User;
 import com.cuiyun.kfcoding.common.base.biz.BaseBiz;
 import com.cuiyun.kfcoding.common.exception.KfCodingException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: kfcoding-cloud
@@ -33,6 +35,8 @@ public class UserBiz extends BaseBiz<UserMapper, User>{
     GithubValidator githubValidator;
     @Autowired
     DbValidator dbValidator;
+    @Autowired
+    BookBiz bookBiz;
 
     public User validate(AuthRequest authRequest) {
         User user = null;
@@ -47,7 +51,8 @@ public class UserBiz extends BaseBiz<UserMapper, User>{
         return user;
     }
 
-    public User add(User user) {
+    @Override
+    public boolean insert(User user) {
         Assert.notNull(user.getEmail(), BizExceptionEnum.USER_EMAIL_NULL.getMessage());
         Assert.notNull(user.getPassword(), BizExceptionEnum.USER_PASSWORD_NULL.getMessage());
         if (!Validator.isEmail(user.getEmail()))
@@ -64,7 +69,33 @@ public class UserBiz extends BaseBiz<UserMapper, User>{
         user.setCreateTime(new Date());
         if (baseMapper.insert(user) == 0)
             throw new KfCodingException(BizExceptionEnum.USER_INSERT);
-        return user;
+        return true;
     }
 
+    /**
+     * 获取公开的书籍
+     */
+    public List<Book> listBook(String userId, BookStatusEnum bookStatusEnum) {
+        List<Book> list = bookBiz.selectList(new EntityWrapper<Book>().eq("user_id", userId).eq("status", bookStatusEnum));
+        return list;
+    }
+
+    @Override
+    public boolean updateById(User entity) {
+        User targetUser = baseMapper.selectById(entity.getId());
+        if (!targetUser.getAccount().equals(entity.getAccount())){
+            User param = new User();
+            param.setAccount(entity.getAccount());
+            param.setVersion(targetUser.getVersion());
+            if (baseMapper.selectOne(param) != null){
+                throw new KfCodingException(BizExceptionEnum.USER_EXIST);
+            }
+        }
+        // 修改数据
+        BeanUtil.copyProperties(entity, targetUser, entity.getIgnoreProperties());
+        if (baseMapper.updateById(targetUser) == 0) {
+            throw new KfCodingException(BizExceptionEnum.USER_UPDATE_ERROR);
+        }
+        return super.updateById(entity);
+    }
 }

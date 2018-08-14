@@ -25,12 +25,12 @@ public class KfCodingGeneratorConfig extends AbstractGeneratorConfig {
         dataSourceConfig.setDbType(DbType.MYSQL);
         dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("123456");
-        dataSourceConfig.setUrl("jdbc:mysql://localhost/kfcoding_user_dev?characterEncoding=utf8");
+        dataSourceConfig.setPassword("123qwe!@#");
+        dataSourceConfig.setUrl("jdbc:mysql://rm-uf6p6lsw9at9z1xkexo.mysql.rds.aliyuncs.com:3306/kfcoding_basic_dev?characterEncoding=utf8");
     }
 
     protected void strategyConfig() {
-        strategyConfig.setTablePrefix(new String[]{"user_"});// 此处可以修改为您的表前缀
+        strategyConfig.setTablePrefix(new String[]{"basic_"});// 此处可以修改为您的表前缀
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
     }
 

@@ -1,6 +1,6 @@
 package com.cuiyun.kfcoding.common.msg;
 
-import java.util.List;
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  * @program: kfcoding-cloud
@@ -8,62 +8,37 @@ import java.util.List;
  * @author: maple
  * @create: 2018-08-02 17:13
  **/
-public class TableResultResponse<T> extends BaseResponse {
+public class TableResultResponse<T> extends BaseResponse  {
 
-    TableData<T> data;
+    Page<T> data;
 
-    public TableResultResponse(long total, List<T> rows) {
-        this.data = new TableData<T>(total, rows);
-    }
+//    public TableResultResponse(long total, List<T> rows) {
+//        this.data = new Page<T>(total, rows);
+//    }
 
     public TableResultResponse() {
-        this.data = new TableData<T>();
+        this.data = new Page<>();
     }
 
-    TableResultResponse<T> total(int total) {
-        this.data.setTotal(total);
-        return this;
-    }
-
-    TableResultResponse<T> total(List<T> rows) {
-        this.data.setRows(rows);
-        return this;
-    }
-
-    public TableData<T> getData() {
-        return data;
-    }
-
-    public void setData(TableData<T> data) {
+    public TableResultResponse(Page<T> data) {
         this.data = data;
     }
 
-    class TableData<T> {
-        long total;
-        List<T> rows;
+//    TableResultResponse<T> total(int total) {
+//        this.data.setTotal(total);
+//        return this;
+//    }
 
-        public TableData(long total, List<T> rows) {
-            this.total = total;
-            this.rows = rows;
-        }
+//    TableResultResponse<T> total(List<T> rows) {
+//        this.data.setRows(rows);
+//        return this;
+//    }
 
-        public TableData() {
-        }
+    public Page<T> getData() {
+        return data;
+    }
 
-        public long getTotal() {
-            return total;
-        }
-
-        public void setTotal(long total) {
-            this.total = total;
-        }
-
-        public List<T> getRows() {
-            return rows;
-        }
-
-        public void setRows(List<T> rows) {
-            this.rows = rows;
-        }
+    public void setData(Page<T> data) {
+        this.data = data;
     }
 }

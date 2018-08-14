@@ -18,6 +18,7 @@
         <module>../kfcoding-modules</module>
         <module>../kfcoding-framework</module>
         <module>../kfcoding-control</module>
+        <module>../kfcoding-sidecar</module>
     </modules>
 
     <groupId>com.cuiyun</groupId>

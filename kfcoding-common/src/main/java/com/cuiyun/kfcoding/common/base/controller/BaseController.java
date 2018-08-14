@@ -1,17 +1,18 @@
 package com.cuiyun.kfcoding.common.base.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.cuiyun.kfcoding.common.base.biz.BaseBiz;
 import com.cuiyun.kfcoding.common.context.BaseContextHandler;
 import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
+import com.cuiyun.kfcoding.common.msg.TableResultResponse;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: kfcoding-cloud
@@ -29,9 +30,9 @@ public class BaseController<Biz extends BaseBiz,Entity> {
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("添加对象")
-    public ResponseEntity add(@RequestBody Entity entity){
+    public ObjectRestResponse add(@RequestBody Entity entity){
         baseBiz.insert(entity);
-        return ResponseEntity.ok(new ObjectRestResponse<Entity>());
+        return new ObjectRestResponse<Entity>();
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
@@ -61,17 +62,22 @@ public class BaseController<Biz extends BaseBiz,Entity> {
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation("获取所有对象")
-    public List<Entity> all(){
-        return baseBiz.selectList(new EntityWrapper());
+    @ApiOperation("根据条件获取所有对象")
+    public List<Entity> all(Map params){
+        return baseBiz.selectByMap(params);
     }
 
-//    @RequestMapping(value = "/page",method = RequestMethod.GET)
-//    @ResponseBody
-//    public TableResultResponse<Entity> list(@RequestParam Map<String, Object> params){
-//        //查询列表数据
-//    }
+    @RequestMapping(value = "/page",method = RequestMethod.GET)
+    @ResponseBody
+    public TableResultResponse<Entity> list(Page page){
+        //查询列表数据
+        Page data = baseBiz.selectPage(page);
+        return new TableResultResponse<Entity>(data);
+    }
     public String getCurrentUserName(){
         return BaseContextHandler.getUsername();
+    }
+    public String getCurrentUserId(){
+        return BaseContextHandler.getUserID();
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @create: 2018-08-06 16:55
  **/
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("service")
 public class ServiceController extends BaseController<ClientBiz,Client> {
 

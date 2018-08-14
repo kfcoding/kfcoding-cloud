@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiyun.kfcoding.basic.dao.BookMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cuiyun.kfcoding.basic.model.Book">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="author" property="author" />
+        <result column="type" property="type" />
+        <result column="brief" property="brief" />
+        <result column="create_time" property="createTime" />
+        <result column="user_id" property="userId" />
+        <result column="level" property="level" />
+        <result column="surface_image" property="surfaceImage" />
+        <result column="surface_background" property="surfaceBackground" />
+        <result column="status" property="status" />
+        <result column="priority" property="priority" />
+        <result column="version" property="version" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, author, type, brief, create_time, user_id, level, surface_image, surface_background, status, priority, version, update_time, is_del
+    </sql>
+
+</mapper>

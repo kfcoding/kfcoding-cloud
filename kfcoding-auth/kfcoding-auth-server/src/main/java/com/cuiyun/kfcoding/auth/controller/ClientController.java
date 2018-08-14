@@ -4,10 +4,7 @@ import com.cuiyun.kfcoding.auth.config.KeyConfig;
 import com.cuiyun.kfcoding.auth.service.AuthClientService;
 import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ import java.util.List;
  * @create: 2018-08-06 16:42
  **/
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("client")
 public class ClientController {
     @Autowired

@@ -18,12 +18,20 @@ public enum BizExceptionEnum implements ServiceExceptionEnum{
     USER_EMAIL_NULL(20002, "用户邮箱不存在"),
     USER_EMAIL_VALIDATE(20002, "用户邮箱格式不正确"),
     USER_PASSWORD_NULL(20002, "用户密码不存在"),
+    USER_UPDATE_ERROR(20002, "用户修改失败"),
 
     /**
      * github模块异常
      */
     GITHUB_CANCAL_OAUTH(21001, "取消授权(code为空)"),
     GITHUB_ERROR_URL(21002, "url获取失败"),
+
+    /**
+     * book模块异常
+     */
+    BOOK_ERROR(22001, "没有课程"),
+    BOOK_CREAT_ERROR(22002, "创建课程失败"),
+    BOOK_UPDATE(22002, "课程修改失败"),
     ;
 
     BizExceptionEnum(Integer code, String message) {

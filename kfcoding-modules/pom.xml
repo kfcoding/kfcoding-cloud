@@ -16,6 +16,8 @@
         <module>kfcoding-interface</module>
         <module>kfcoding-basic</module>
         <module>kfcoding-generator</module>
+        <module>kfcoding-workspace</module>
+        <module>kfcoding-edu</module>
     </modules>
 
 

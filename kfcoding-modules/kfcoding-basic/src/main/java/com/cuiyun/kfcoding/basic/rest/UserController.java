@@ -1,17 +1,18 @@
 package com.cuiyun.kfcoding.basic.rest;
 
-import com.cuiyun.kfcoding.api.vo.authority.AuthRequest;
-import com.cuiyun.kfcoding.api.vo.authority.enums.AuthTypeEnum;
+import com.cuiyun.kfcoding.auth.client.annotation.IgnoreUserToken;
 import com.cuiyun.kfcoding.basic.biz.UserBiz;
+import com.cuiyun.kfcoding.basic.enums.BookStatusEnum;
+import com.cuiyun.kfcoding.basic.model.Book;
 import com.cuiyun.kfcoding.basic.model.User;
 import com.cuiyun.kfcoding.common.base.controller.BaseController;
+import com.cuiyun.kfcoding.common.msg.ListRestResponse;
+import com.cuiyun.kfcoding.common.msg.ObjectRestResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @program: kfcoding-cloud
@@ -25,18 +26,29 @@ import org.springframework.web.bind.annotation.*;
 @Api("用户模块")
 public class UserController extends BaseController<UserBiz, User>{
 
-    @Value("${auth.token-url}")
-    private String tokenUrl;
+    @IgnoreUserToken
+    public ObjectRestResponse add(@RequestBody User user) {
+        return super.add(user);
+    }
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
-    @ApiOperation("添加对象")
     @Override
-    public ResponseEntity add(@RequestBody User user) {
-        User savedUser = baseBiz.add(user);
-        AuthRequest authRequest = new AuthRequest();
-        authRequest.setAuthType(AuthTypeEnum.PASSWORD.getValue());
-        authRequest.setCredenceCode(savedUser.getPassword());
-        authRequest.setCredenceName(savedUser.getEmail());
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, tokenUrl).body(authRequest);
+    @IgnoreUserToken
+    public ObjectRestResponse<User> get(String id) {
+        return super.get(id);
+    }
+
+    @RequestMapping(path = "/{userId}/books", method = RequestMethod.GET)
+    @ApiOperation(value = "用户课程列表", notes="列出该用户创建的所有公开的课程")
+    @IgnoreUserToken
+    public ListRestResponse listBook(@PathVariable String userId) {
+        List<Book> list = baseBiz.listBook(userId, BookStatusEnum.PUBLIC);
+        return new ListRestResponse().result(list);
+    }
+
+    @RequestMapping(path = "/current", method = RequestMethod.GET)
+    @ApiOperation(value = "当前用户", notes="获取当前用户信息")
+    public ObjectRestResponse current() {
+        User user = baseBiz.selectById(getCurrentUserId());
+        return new ObjectRestResponse().data(user);
     }
 }

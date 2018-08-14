@@ -1,0 +1,19 @@
+server:
+    port: 5688 #启动端口
+
+spring:
+    application:
+        name: kfcoding-sidecar-cloudware
+
+sidecar:
+    port: 8080 #python接口
+    health-uri: http://192.168.200.179:${sidecar.port}/health
+
+
+eureka:
+    instance:
+        statusPageUrlPath: /actuator/info
+        healthCheckUrlPath: /actuator/health
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
