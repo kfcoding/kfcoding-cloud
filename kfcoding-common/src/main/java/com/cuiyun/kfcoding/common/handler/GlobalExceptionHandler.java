@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public BaseResponse baseExceptionHandler(KfCodingException ex) {
         logger.error(ex.getMessage(),ex);
-        return new BaseResponse(ex.getCode(), ex.getMessage());
+        return new BaseResponse(ex.getStatus(), ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
@@ -42,13 +42,13 @@ public class GlobalExceptionHandler {
     public BaseResponse clientTokenExceptionHandler(HttpServletResponse response, ClientTokenException ex) {
         response.setStatus(403);
         logger.error(ex.getMessage(),ex);
-        return new BaseResponse(ex.getCode(), ex.getMessage());
+        return new BaseResponse(ex.getStatus(), ex.getMessage());
     }
 
     @ExceptionHandler(UserTokenException.class)
     public BaseResponse userTokenExceptionHandler(HttpServletResponse response, UserTokenException ex) {
         response.setStatus(401);
         logger.error(ex.getMessage(),ex);
-        return new BaseResponse(ex.getCode(), ex.getMessage());
+        return new BaseResponse(ex.getStatus(), ex.getMessage());
     }
 }

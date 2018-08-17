@@ -34,22 +34,22 @@ public enum BizExceptionEnum implements ServiceExceptionEnum{
     BOOK_UPDATE(22002, "课程修改失败"),
     ;
 
-    BizExceptionEnum(Integer code, String message) {
-        this.code = code;
+    BizExceptionEnum(Integer status, String message) {
+        this.status = status;
         this.message = message;
     }
 
-    private Integer code;
+    private Integer status;
 
     private String message;
 
     @Override
-    public Integer getCode() {
-        return code;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatus(Integer code) {
+        this.status = code;
     }
 
     @Override

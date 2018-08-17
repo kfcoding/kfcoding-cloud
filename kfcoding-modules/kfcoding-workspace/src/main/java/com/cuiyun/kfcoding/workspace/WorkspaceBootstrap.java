@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableKfcodingCache
 @SpringBootApplication
-@MapperScan("com.cuiyun.kfcoding.workspace.dao")
 @EnableSwagger2Doc
 public class WorkspaceBootstrap {
     public static void main(String[] args) {

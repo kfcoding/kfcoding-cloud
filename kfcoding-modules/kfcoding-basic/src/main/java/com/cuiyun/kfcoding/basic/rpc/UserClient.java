@@ -8,8 +8,6 @@ import com.cuiyun.kfcoding.basic.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 /**
  * @program: kfcoding-cloud
  * @description: 用户rpc控制层
@@ -18,7 +16,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("api/users")
-public class UserRest {
+public class UserClient {
     @Autowired
     private UserBiz userBiz;
 

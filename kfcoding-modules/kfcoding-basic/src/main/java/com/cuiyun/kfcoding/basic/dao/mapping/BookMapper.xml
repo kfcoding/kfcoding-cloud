@@ -23,7 +23,55 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, author, type, brief, create_time, user_id, level, surface_image, surface_background, status, priority, version, update_time, is_del
+        b.id, b.title, b.author, b.type, b.brief, b.create_time, b.user_id, b.level, b.surface_image, b.surface_background, b.status, b.priority, b.version, b.update_time, b.is_del
     </sql>
+
+    <select id="selectPublicList" resultType="com.cuiyun.kfcoding.basic.model.Book">
+      SELECT
+        <include refid="Base_Column_List" />
+      FROM
+        basic_book b
+      <if test="condition.tagId != null">
+      INNER JOIN basic_book_to_book_tag b2t ON b.id = b2t.book_id
+      INNER JOIN basic_book_tag t ON t.id = b2t.tag_id
+      </if>
+      WHERE 1=1
+        <if test="condition.tagId != null">
+            AND t.id = #{condition.tagId}
+        </if>
+        <if test="condition.title">
+            AND b.title LIKE "%"#{condition.title}"%"
+        </if>
+        <if test="condition.level != null">
+            AND b.level LIKE #{condition.level}
+        </if>
+        <if test="condition.status != null">
+            AND b.status = #{condition.status}
+        </if>
+    </select>
+
+    <select id="selectPublicPageCount" resultType="java.lang.Long">
+        SELECT
+          count(b.id)
+        FROM
+         basic_book b
+        <if test="condition.tagId != null">
+            INNER JOIN basic_book_to_book_tag b2t ON b.id = b2t.book_id
+            INNER JOIN basic_book_tag t ON t.id = b2t.tag_id
+        </if>
+        WHERE 1=1
+        <if test="condition.tagId != null">
+            AND t.id = #{condition.tagId}
+        </if>
+        <if test="condition.title">
+            AND b.title LIKE "%"#{condition.title}"%"
+        </if>
+        <if test="condition.level != null">
+            AND b.level LIKE #{conditon.level}
+        </if>
+        <if test="condition.status != null">
+            AND b.status = #{condition.status}
+        </if>
+    </select>
 
 </mapper>

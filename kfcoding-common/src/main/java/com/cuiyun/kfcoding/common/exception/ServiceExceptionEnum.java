@@ -11,7 +11,7 @@ public interface ServiceExceptionEnum {
     /**
      * 获取异常编码
      */
-    Integer getCode();
+    Integer getStatus();
 
     /**
      * 获取异常信息

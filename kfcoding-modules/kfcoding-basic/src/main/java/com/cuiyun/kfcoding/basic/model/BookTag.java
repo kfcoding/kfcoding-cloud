@@ -12,10 +12,11 @@ import lombok.Data;
  * @author maple123
  * @since 2018-06-07
  */
-@TableName("book_tag")
+@TableName("basic_book_tag")
 @Data
 public class BookTag extends BaseModel<BookTag> {
 
     private static final long serialVersionUID = 1L;
     private String name;
+    private String title;
 }

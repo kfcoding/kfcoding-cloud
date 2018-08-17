@@ -8,7 +8,7 @@ package com.cuiyun.kfcoding.common.msg;
  **/
 public class BaseResponse {
     private int status = 200;
-    private String message;
+    private String message = "请求成功";
 
     public BaseResponse(int status, String message) {
         this.status = status;

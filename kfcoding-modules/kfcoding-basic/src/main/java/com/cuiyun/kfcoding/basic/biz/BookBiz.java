@@ -2,7 +2,9 @@ package com.cuiyun.kfcoding.basic.biz;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.cuiyun.kfcoding.basic.dao.BookMapper;
+import com.cuiyun.kfcoding.basic.enums.BookStatusEnum;
 import com.cuiyun.kfcoding.basic.exception.BizExceptionEnum;
 import com.cuiyun.kfcoding.basic.model.Book;
 import com.cuiyun.kfcoding.basic.model.BookTag;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: kfcoding-cloud
@@ -37,6 +41,24 @@ public class BookBiz extends BaseBiz<BookMapper, Book>{
         baseMapper.insert(entity);
         List<BookToBookTag> bookToBookTags = setBookToBookTag(tags, entity.getId());
         return bookToBookTagBiz.insertBatch(bookToBookTags);
+    }
+
+    @Override
+    public Page<Book> selectPage(Page<Book> page) {
+        Map condition = null;
+        if (page.getCondition() != null) {
+            condition= page.getCondition();
+            if (!condition.containsKey("status")){
+                condition.put("status", BookStatusEnum.PUBLIC.getValue());
+            }
+        } else {
+            condition = new HashMap();
+            condition.put("status", BookStatusEnum.PUBLIC.getValue());
+        }
+
+        page.setTotal(baseMapper.selectPublicPageCount(condition));
+        page.setRecords(baseMapper.selectPublicList(page, condition));
+        return page;
     }
 
     private List<BookToBookTag> setBookToBookTag(List<BookTag> tags, String bookId){

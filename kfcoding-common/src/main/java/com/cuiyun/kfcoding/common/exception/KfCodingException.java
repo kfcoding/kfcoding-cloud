@@ -8,21 +8,20 @@ package com.cuiyun.kfcoding.common.exception;
  **/
 public class KfCodingException extends RuntimeException {
 
-    private int code;
+    private int status;
     private String message;
 
     public KfCodingException(ServiceExceptionEnum serviceExceptionEnum){
-        this.code = serviceExceptionEnum.getCode();
+        this.status = serviceExceptionEnum.getStatus();
         this.message = serviceExceptionEnum.getMessage();
     }
 
-
-    public Integer getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {

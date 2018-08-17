@@ -1,6 +1,7 @@
 package com.cuiyun.kfcoding.basic.rest;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.cuiyun.kfcoding.auth.client.annotation.IgnoreUserToken;
 import com.cuiyun.kfcoding.basic.biz.BookBiz;
 import com.cuiyun.kfcoding.basic.biz.BookTagBiz;
@@ -8,13 +9,11 @@ import com.cuiyun.kfcoding.basic.model.Book;
 import com.cuiyun.kfcoding.basic.model.BookTag;
 import com.cuiyun.kfcoding.common.base.controller.BaseController;
 import com.cuiyun.kfcoding.common.msg.ListRestResponse;
+import com.cuiyun.kfcoding.common.msg.TableResultResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,4 +40,10 @@ public class BookController extends BaseController<BookBiz, Book>{
         return new ListRestResponse().result(tags);
     }
 
+    @RequestMapping(value = "/page",method = RequestMethod.GET)
+    @IgnoreUserToken
+    @Override
+    public TableResultResponse<Book> list(Page page) {
+        return super.list(page);
+    }
 }
