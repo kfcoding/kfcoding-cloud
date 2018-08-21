@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!--日志处理-->
+    <rabbit:queue name="log-basic" />
+    <!--Account 回调-->
+    <rabbit:queue name="log-callback" />
+
+    <rabbit:topic-exchange name="kfcoding_log">
+        <rabbit:bindings>
+            <!--未处理消息-->
+            <rabbit:binding queue="log-basic" pattern="log.basic.*.*.Unprocessed" />
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+</beans>

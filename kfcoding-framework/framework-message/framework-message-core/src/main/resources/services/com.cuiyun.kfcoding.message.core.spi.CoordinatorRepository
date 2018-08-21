@@ -1,0 +1,5 @@
+com.cuiyun.kfcoding.message.core.spi.repository.JdbcCoordinatorRepository
+com.cuiyun.kfcoding.message.core.spi.repository.FileCoordinatorRepository
+com.cuiyun.kfcoding.message.core.spi.repository.MongoCoordinatorRepository
+com.cuiyun.kfcoding.message.core.spi.repository.RedisCoordinatorRepository
+com.cuiyun.kfcoding.message.core.spi.repository.ZookeeperCoordinatorRepository

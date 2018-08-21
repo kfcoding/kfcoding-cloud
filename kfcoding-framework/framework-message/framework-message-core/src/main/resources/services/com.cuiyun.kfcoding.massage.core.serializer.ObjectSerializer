@@ -1,0 +1,4 @@
+com.cuiyun.kfcoding.message.core.serializer.KryoSerializer
+com.cuiyun.kfcoding.message.core.serializer.ProtostuffSerializer
+com.cuiyun.kfcoding.message.core.serializer.HessianSerializer
+com.cuiyun.kfcoding.message.core.serializer.JavaSerializer
