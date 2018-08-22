@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * this myth transaction actor.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @Component
 public class ActorTransactionHandler implements TransactionHandler {

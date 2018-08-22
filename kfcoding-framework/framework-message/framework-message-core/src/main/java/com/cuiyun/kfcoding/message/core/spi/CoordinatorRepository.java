@@ -80,7 +80,7 @@ public interface CoordinatorRepository {
      * update status in transaction.
      *
      * @param transId pk
-     * @param status  {@linkplain com.github.myth.common.enums.MythStatusEnum}
+     * @param status  {@linkplain com.cuiyun.kfcoding.message.core.enums.StatusEnum}
      * @return Influence row number
      * @throws MessageRuntimeException ex {@linkplain MessageRuntimeException}
      */

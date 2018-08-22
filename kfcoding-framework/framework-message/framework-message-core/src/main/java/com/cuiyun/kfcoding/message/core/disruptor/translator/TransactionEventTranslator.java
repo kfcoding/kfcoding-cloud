@@ -25,7 +25,7 @@ import com.lmax.disruptor.EventTranslatorOneArg;
 
 /**
  * TransactionEventTranslator.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 public class TransactionEventTranslator implements EventTranslatorOneArg<TransactionEvent, Transaction> {
 

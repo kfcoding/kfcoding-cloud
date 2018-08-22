@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * JedisClientSentinel.
- * @author xiaoyu(Myth)
+ * @author maple(Message)
  */
 public class JedisClientSentinel implements JedisClient {
 

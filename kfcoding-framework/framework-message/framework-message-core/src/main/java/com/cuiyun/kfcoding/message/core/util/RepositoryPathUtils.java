@@ -22,7 +22,7 @@ import com.cuiyun.kfcoding.message.core.constant.CommonConstant;
 
 /**
  * RepositoryPathUtils.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 public class RepositoryPathUtils {
 

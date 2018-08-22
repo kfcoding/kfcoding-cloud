@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * JedisClient.
- * @author xiaoyu(Myth)
+ * @author maple(Message)
  */
 public interface JedisClient {
 

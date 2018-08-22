@@ -18,15 +18,15 @@
 
 package com.cuiyun.kfcoding.message.core.coordinator.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.cuiyun.kfcoding.message.core.bean.entity.Transaction;
+import com.cuiyun.kfcoding.message.core.config.AutoConfig;
 import com.cuiyun.kfcoding.message.core.coordinator.CoordinatorService;
-import com.github.myth.common.bean.entity.MythTransaction;
-import com.github.myth.common.config.MythConfig;
-import com.github.myth.common.exception.MythRuntimeException;
-import com.github.myth.common.serializer.ObjectSerializer;
-import com.github.myth.core.helper.SpringBeanUtils;
-import com.github.myth.core.service.RpcApplicationService;
-import com.github.myth.core.spi.CoordinatorRepository;
-import org.apache.commons.lang3.StringUtils;
+import com.cuiyun.kfcoding.message.core.exception.MessageRuntimeException;
+import com.cuiyun.kfcoding.message.core.helper.SpringBeanUtils;
+import com.cuiyun.kfcoding.message.core.serializer.ObjectSerializer;
+import com.cuiyun.kfcoding.message.core.service.RpcApplicationService;
+import com.cuiyun.kfcoding.message.core.spi.CoordinatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,29 +54,29 @@ public class CoordinatorServiceImpl implements CoordinatorService {
     }
 
     @Override
-    public void start(final MythConfig mythConfig) {
+    public void start(final AutoConfig autoConfig) {
         coordinatorRepository = SpringBeanUtils.getInstance().getBean(CoordinatorRepository.class);
-        final String repositorySuffix = buildRepositorySuffix(mythConfig.getRepositorySuffix());
+        final String repositorySuffix = buildRepositorySuffix(autoConfig.getRepositorySuffix());
         //初始化spi 协调资源存储
-        coordinatorRepository.init(repositorySuffix, mythConfig);
+        coordinatorRepository.init(repositorySuffix, autoConfig);
     }
 
     @Override
-    public String save(final MythTransaction mythTransaction) {
-        final int rows = coordinatorRepository.create(mythTransaction);
+    public String save(final Transaction transaction) {
+        final int rows = coordinatorRepository.create(transaction);
         if (rows > 0) {
-            return mythTransaction.getTransId();
+            return transaction.getTransId();
         }
         return null;
     }
 
     @Override
-    public MythTransaction findByTransId(final String transId) {
+    public Transaction findByTransId(final String transId) {
         return coordinatorRepository.findByTransId(transId);
     }
 
     @Override
-    public List<MythTransaction> listAllByDelay(final Date date) {
+    public List<Transaction> listAllByDelay(final Date date) {
         return coordinatorRepository.listAllByDelay(date);
     }
 
@@ -86,18 +86,18 @@ public class CoordinatorServiceImpl implements CoordinatorService {
     }
 
     @Override
-    public int update(final MythTransaction mythTransaction) throws MythRuntimeException {
-        return coordinatorRepository.update(mythTransaction);
+    public int update(final Transaction transaction) throws MessageRuntimeException {
+        return coordinatorRepository.update(transaction);
     }
 
     @Override
-    public void updateFailTransaction(final MythTransaction mythTransaction) throws MythRuntimeException {
-        coordinatorRepository.updateFailTransaction(mythTransaction);
+    public void updateFailTransaction(final Transaction transaction) throws MessageRuntimeException {
+        coordinatorRepository.updateFailTransaction(transaction);
     }
 
     @Override
-    public void updateParticipant(final MythTransaction mythTransaction) throws MythRuntimeException {
-        coordinatorRepository.updateParticipant(mythTransaction);
+    public void updateParticipant(final Transaction transaction) throws MessageRuntimeException {
+        coordinatorRepository.updateParticipant(transaction);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
     }
 
     private String buildRepositorySuffix(final String repositorySuffix) {
-        if (StringUtils.isNoneBlank(repositorySuffix)) {
+        if (StrUtil.isNotBlank(repositorySuffix)) {
             return repositorySuffix;
         } else {
             return rpcApplicationService.acquireName();

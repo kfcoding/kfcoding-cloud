@@ -43,7 +43,7 @@ import java.util.stream.StreamSupport;
 
 /**
  * myth init.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @Slf4j
 @Service
@@ -71,7 +71,7 @@ public class InitServiceImpl implements InitService {
 
     @Override
     public void initialization(final AutoConfig autoConfig) {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.error("myth have error!")));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> LOGGER.error("message have error!")));
         try {
             loadSpiSupport(autoConfig);
             publisher.start(autoConfig.getBufferSize());
@@ -81,11 +81,11 @@ public class InitServiceImpl implements InitService {
                 scheduledService.scheduledAutoRecover(autoConfig);
             }
         } catch (Exception ex) {
-            log.error("Myth init fail:{}", ex.getMessage);
+            log.error("message init fail:{}", ex.getMessage());
             //非正常关闭
             System.exit(1);
         }
-        log.info("Myth init success");
+        log.info("message init success");
     }
 
     /**

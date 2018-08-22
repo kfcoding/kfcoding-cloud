@@ -54,7 +54,7 @@ public class Participant implements Serializable {
     /**
      * 执行器.
      */
-    private Invocation mythInvocation;
+    private Invocation invocation;
 
 
 }

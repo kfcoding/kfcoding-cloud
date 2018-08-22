@@ -18,17 +18,17 @@
 
 package com.cuiyun.kfcoding.message.core.service.mq.send;
 
-import com.github.myth.common.bean.entity.MythParticipant;
-import com.github.myth.common.bean.entity.MythTransaction;
-import com.github.myth.common.bean.mq.MessageEntity;
-import com.github.myth.common.enums.EventTypeEnum;
-import com.github.myth.common.enums.MythStatusEnum;
-import com.github.myth.common.serializer.ObjectSerializer;
-import com.github.myth.core.disruptor.publisher.MythTransactionEventPublisher;
-import com.github.myth.core.helper.SpringBeanUtils;
-import com.github.myth.core.service.MythMqSendService;
-import com.github.myth.core.service.MythSendMessageService;
-import org.apache.commons.collections.CollectionUtils;
+import cn.hutool.core.util.ArrayUtil;
+import com.cuiyun.kfcoding.message.core.bean.entity.Participant;
+import com.cuiyun.kfcoding.message.core.bean.entity.Transaction;
+import com.cuiyun.kfcoding.message.core.bean.mq.MessageEntity;
+import com.cuiyun.kfcoding.message.core.disruptor.publisher.TransactionEventPublisher;
+import com.cuiyun.kfcoding.message.core.enums.EventTypeEnum;
+import com.cuiyun.kfcoding.message.core.enums.StatusEnum;
+import com.cuiyun.kfcoding.message.core.helper.SpringBeanUtils;
+import com.cuiyun.kfcoding.message.core.serializer.ObjectSerializer;
+import com.cuiyun.kfcoding.message.core.service.MqSendService;
+import com.cuiyun.kfcoding.message.core.service.SendMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,36 +37,36 @@ import java.util.Objects;
 
 /**
  * SendMessageServiceImpl.
- * @author maple(Myth)
+ * @author maple(Message)
  */
-@Service("mythSendMessageService")
-public class SendMessageServiceImpl implements MythSendMessageService {
+@Service("sendMessageService")
+public class SendMessageServiceImpl implements SendMessageService {
 
     private volatile ObjectSerializer serializer;
 
-    private volatile MythMqSendService mythMqSendService;
+    private volatile MqSendService mqSendService;
 
     @Autowired
-    private MythTransactionEventPublisher publisher;
+    private TransactionEventPublisher publisher;
 
     @Override
-    public Boolean sendMessage(final MythTransaction mythTransaction) {
-        if (Objects.isNull(mythTransaction)) {
+    public Boolean sendMessage(final Transaction transaction) {
+        if (Objects.isNull(transaction)) {
             return false;
         }
-        final List<MythParticipant> mythParticipants = mythTransaction.getMythParticipants();
+        final List<Participant> participants = transaction.getParticipants();
         /*
          * 这里的这个判断很重要，不为空，表示本地的方法执行成功，需要执行远端的rpc方法
          * 为什么呢，因为我会在切面的finally里面发送消息，意思是切面无论如何都需要发送mq消息
          * 那么考虑问题，如果本地执行成功，调用rpc的时候才需要发
-         * 如果本地异常，则不需要发送mq ，此时mythParticipants为空
+         * 如果本地异常，则不需要发送mq ，此时participants为空
          */
-        if (CollectionUtils.isNotEmpty(mythParticipants)) {
-            for (MythParticipant mythParticipant : mythParticipants) {
-                MessageEntity messageEntity = new MessageEntity(mythParticipant.getTransId(), mythParticipant.getMythInvocation());
+        if (ArrayUtil.isNotEmpty(participants)) {
+            for (Participant participant : participants) {
+                MessageEntity messageEntity = new MessageEntity(participant.getTransId(), participant.getInvocation());
                 try {
                     final byte[] message = getObjectSerializer().serialize(messageEntity);
-                    getMythMqSendService().sendMessage(mythParticipant.getDestination(), mythParticipant.getPattern(), message);
+                    getMqSendService().sendMessage(participant.getDestination(), participant.getPattern(), message);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return Boolean.FALSE;
@@ -74,21 +74,21 @@ public class SendMessageServiceImpl implements MythSendMessageService {
             }
             //这里为什么要这么做呢？ 主要是为了防止在极端情况下，发起者执行过程中，突然自身down 机
             //造成消息未发送，新增一个状态标记，如果出现这种情况，通过定时任务发送消息
-            mythTransaction.setStatus(MythStatusEnum.COMMIT.getCode());
-            publisher.publishEvent(mythTransaction, EventTypeEnum.UPDATE_STATUS.getCode());
+            transaction.setStatus(StatusEnum.COMMIT.getCode());
+            publisher.publishEvent(transaction, EventTypeEnum.UPDATE_STATUS.getCode());
         }
         return Boolean.TRUE;
     }
 
-    private synchronized MythMqSendService getMythMqSendService() {
-        if (mythMqSendService == null) {
+    private synchronized MqSendService getMqSendService() {
+        if (mqSendService == null) {
             synchronized (SendMessageServiceImpl.class) {
-                if (mythMqSendService == null) {
-                    mythMqSendService = SpringBeanUtils.getInstance().getBean(MythMqSendService.class);
+                if (mqSendService == null) {
+                    mqSendService = SpringBeanUtils.getInstance().getBean(MqSendService.class);
                 }
             }
         }
-        return mythMqSendService;
+        return mqSendService;
     }
 
     private synchronized ObjectSerializer getObjectSerializer() {

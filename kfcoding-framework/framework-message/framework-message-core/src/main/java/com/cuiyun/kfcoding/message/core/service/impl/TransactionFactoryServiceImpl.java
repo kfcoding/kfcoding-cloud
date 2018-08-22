@@ -18,42 +18,42 @@
 
 package com.cuiyun.kfcoding.message.core.service.impl;
 
-import com.github.myth.common.bean.context.MythTransactionContext;
-import com.github.myth.common.enums.MythRoleEnum;
-import com.github.myth.core.service.MythTransactionFactoryService;
-import com.github.myth.core.service.engine.MythTransactionEngine;
-import com.github.myth.core.service.handler.ActorMythTransactionHandler;
-import com.github.myth.core.service.handler.LocalMythTransactionHandler;
-import com.github.myth.core.service.handler.StartMythTransactionHandler;
+import com.cuiyun.kfcoding.message.core.bean.context.TransactionContext;
+import com.cuiyun.kfcoding.message.core.enums.RoleEnum;
+import com.cuiyun.kfcoding.message.core.service.TransactionFactoryService;
+import com.cuiyun.kfcoding.message.core.service.engine.TransactionEngine;
+import com.cuiyun.kfcoding.message.core.service.handler.ActorTransactionHandler;
+import com.cuiyun.kfcoding.message.core.service.handler.LocalTransactionHandler;
+import com.cuiyun.kfcoding.message.core.service.handler.StartTransactionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 /**
- * MythTransactionFactoryServiceImpl.
- * @author maple(Myth)
+ * TransactionFactoryServiceImpl.
+ * @author maple(Message)
  */
 @Component
-public class TransactionFactoryServiceImpl implements MythTransactionFactoryService {
+public class TransactionFactoryServiceImpl implements TransactionFactoryService {
 
-    private final MythTransactionEngine mythTransactionEngine;
+    private final TransactionEngine transactionEngine;
 
     @Autowired
-    public TransactionFactoryServiceImpl(final MythTransactionEngine mythTransactionEngine) {
-        this.mythTransactionEngine = mythTransactionEngine;
+    public TransactionFactoryServiceImpl(final TransactionEngine transactionEngine) {
+        this.transactionEngine = transactionEngine;
     }
 
     @Override
-    public Class factoryOf(final MythTransactionContext context) throws Throwable {
+    public Class factoryOf(final TransactionContext context) throws Throwable {
         //如果事务还没开启或者 myth事务上下文是空， 那么应该进入发起调用
-        if (!mythTransactionEngine.isBegin() && Objects.isNull(context)) {
-            return StartMythTransactionHandler.class;
+        if (!transactionEngine.isBegin() && Objects.isNull(context)) {
+            return StartTransactionHandler.class;
         } else {
-            if (context.getRole() == MythRoleEnum.LOCAL.getCode()) {
-                return LocalMythTransactionHandler.class;
+            if (context.getRole() == RoleEnum.LOCAL.getCode()) {
+                return LocalTransactionHandler.class;
             }
-            return ActorMythTransactionHandler.class;
+            return ActorTransactionHandler.class;
         }
     }
 }

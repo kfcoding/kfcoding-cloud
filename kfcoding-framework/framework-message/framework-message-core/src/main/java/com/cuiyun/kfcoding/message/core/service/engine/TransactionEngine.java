@@ -71,7 +71,7 @@ public class TransactionEngine {
      * @param point cut point.
      */
     public void begin(final ProceedingJoinPoint point) {
-        log.debug("开始执行Myth分布式事务！start");
+        log.debug("开始执行Message分布式事务！start");
         Transaction transaction = buildTransaction(point, RoleEnum.START.getCode(), StatusEnum.BEGIN.getCode(), "");
         //发布事务保存事件，异步保存
         publishEvent.publishEvent(transaction, EventTypeEnum.SAVE.getCode());

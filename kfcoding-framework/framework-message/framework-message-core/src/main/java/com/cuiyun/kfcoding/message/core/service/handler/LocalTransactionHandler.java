@@ -18,8 +18,8 @@
 
 package com.cuiyun.kfcoding.message.core.service.handler;
 
-import com.github.myth.common.bean.context.MythTransactionContext;
-import com.github.myth.core.service.MythTransactionHandler;
+import com.cuiyun.kfcoding.message.core.bean.context.TransactionContext;
+import com.cuiyun.kfcoding.message.core.service.TransactionHandler;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +28,10 @@ import org.springframework.stereotype.Component;
  * @author maple
  */
 @Component
-public class LocalTransactionHandler implements MythTransactionHandler {
+public class LocalTransactionHandler implements TransactionHandler {
 
     @Override
-    public Object handler(final ProceedingJoinPoint point, final MythTransactionContext mythTransactionContext) throws Throwable {
+    public Object handler(final ProceedingJoinPoint point, final TransactionContext transactionContext) throws Throwable {
         return point.proceed();
     }
 }

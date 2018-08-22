@@ -26,7 +26,7 @@ import java.io.Serializable;
 
 /**
  * TransactionEvent.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @Data
 public class TransactionEvent implements Serializable {

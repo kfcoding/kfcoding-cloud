@@ -18,7 +18,7 @@
 
 package com.cuiyun.kfcoding.message.core.service;
 
-import com.github.myth.common.config.MythConfig;
+import com.cuiyun.kfcoding.message.core.config.AutoConfig;
 
 /**
  * InitService.
@@ -30,7 +30,7 @@ public interface InitService {
     /**
      * myth init.
      *
-     * @param mythConfig {@linkplain MythConfig}
+     * @param AutoConfig {@linkplain AutoConfig}
      */
-    void initialization(MythConfig mythConfig);
+    void initialization(AutoConfig AutoConfig);
 }

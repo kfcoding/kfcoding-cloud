@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * TransactionEventHandler.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @Component
 public class TransactionEventHandler implements EventHandler<TransactionEvent> {

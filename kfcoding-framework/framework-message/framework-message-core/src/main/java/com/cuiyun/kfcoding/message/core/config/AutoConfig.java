@@ -188,27 +188,27 @@ public class AutoConfig {
             return this;
         }
 
-        public Builder setMythDbConfig(DbConfig dbConfig) {
+        public Builder setDbConfig(DbConfig dbConfig) {
             this.dbConfig = dbConfig;
             return this;
         }
 
-        public Builder setMythMongoConfig(MongoConfig mongoConfig) {
+        public Builder setMongoConfig(MongoConfig mongoConfig) {
             this.mongoConfig = mongoConfig;
             return this;
         }
 
-        public Builder setMythRedisConfig(RedisConfig redisConfig) {
+        public Builder setRedisConfig(RedisConfig redisConfig) {
             this.redisConfig = redisConfig;
             return this;
         }
 
-        public Builder setMythZookeeperConfig(ZookeeperConfig zookeeperConfig) {
+        public Builder setZookeeperConfig(ZookeeperConfig zookeeperConfig) {
             this.zookeeperConfig = zookeeperConfig;
             return this;
         }
 
-        public Builder setMythFileConfig(FileConfig fileConfig) {
+        public Builder setFileConfig(FileConfig fileConfig) {
             this.fileConfig = fileConfig;
             return this;
         }
@@ -249,23 +249,23 @@ public class AutoConfig {
             return bufferSize;
         }
 
-        public DbConfig getMythDbConfig() {
+        public DbConfig getDbConfig() {
             return dbConfig;
         }
 
-        public MongoConfig getMythMongoConfig() {
+        public MongoConfig getMongoConfig() {
             return mongoConfig;
         }
 
-        public RedisConfig getMythRedisConfig() {
+        public RedisConfig getRedisConfig() {
             return redisConfig;
         }
 
-        public ZookeeperConfig getMythZookeeperConfig() {
+        public ZookeeperConfig getZookeeperConfig() {
             return zookeeperConfig;
         }
 
-        public FileConfig getMythFileConfig() {
+        public FileConfig getFileConfig() {
             return fileConfig;
         }
 

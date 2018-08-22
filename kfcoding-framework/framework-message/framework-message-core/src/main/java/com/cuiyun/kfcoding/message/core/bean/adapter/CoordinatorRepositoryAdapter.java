@@ -25,7 +25,7 @@ import java.util.Date;
 
 /**
  * CoordinatorRepositoryAdapter.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @Data
 @NoArgsConstructor
@@ -38,12 +38,12 @@ public class CoordinatorRepositoryAdapter {
     private String transId;
 
     /**
-     * 事务状态. {@linkplain com.github.myth.common.enums.MythStatusEnum}
+     * 事务状态. {@linkplain com.cuiyun.kfcoding.message.core.enums.StatusEnum}
      */
     private int status;
 
     /**
-     * 事务类型. {@linkplain com.github.myth.common.enums.MythRoleEnum}
+     * 事务类型. {@linkplain com.cuiyun.kfcoding.message.core.enums.RoleEnum}
      */
     private int role;
 

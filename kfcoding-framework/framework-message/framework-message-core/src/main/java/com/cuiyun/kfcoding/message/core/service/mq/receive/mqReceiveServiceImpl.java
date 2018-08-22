@@ -18,24 +18,23 @@
 
 package com.cuiyun.kfcoding.message.core.service.mq.receive;
 
-import com.github.myth.common.bean.context.MythTransactionContext;
-import com.github.myth.common.bean.entity.MythInvocation;
-import com.github.myth.common.bean.entity.MythTransaction;
-import com.github.myth.common.bean.mq.MessageEntity;
-import com.github.myth.common.config.MythConfig;
-import com.github.myth.common.enums.EventTypeEnum;
-import com.github.myth.common.enums.MythRoleEnum;
-import com.github.myth.common.enums.MythStatusEnum;
-import com.github.myth.common.exception.MythException;
-import com.github.myth.common.exception.MythRuntimeException;
-import com.github.myth.common.serializer.ObjectSerializer;
-import com.github.myth.common.utils.LogUtil;
-import com.github.myth.core.concurrent.threadlocal.TransactionContextLocal;
-import com.github.myth.core.coordinator.CoordinatorService;
-import com.github.myth.core.disruptor.publisher.MythTransactionEventPublisher;
-import com.github.myth.core.helper.SpringBeanUtils;
-import com.github.myth.core.service.MythMqReceiveService;
-import com.github.myth.core.service.mq.send.MythSendMessageServiceImpl;
+import com.cuiyun.kfcoding.message.core.bean.context.TransactionContext;
+import com.cuiyun.kfcoding.message.core.bean.entity.Invocation;
+import com.cuiyun.kfcoding.message.core.bean.entity.Transaction;
+import com.cuiyun.kfcoding.message.core.bean.mq.MessageEntity;
+import com.cuiyun.kfcoding.message.core.concurrent.threadlocal.TransactionContextLocal;
+import com.cuiyun.kfcoding.message.core.config.AutoConfig;
+import com.cuiyun.kfcoding.message.core.coordinator.CoordinatorService;
+import com.cuiyun.kfcoding.message.core.disruptor.publisher.TransactionEventPublisher;
+import com.cuiyun.kfcoding.message.core.enums.EventTypeEnum;
+import com.cuiyun.kfcoding.message.core.enums.RoleEnum;
+import com.cuiyun.kfcoding.message.core.enums.StatusEnum;
+import com.cuiyun.kfcoding.message.core.exception.MessageException;
+import com.cuiyun.kfcoding.message.core.exception.MessageRuntimeException;
+import com.cuiyun.kfcoding.message.core.helper.SpringBeanUtils;
+import com.cuiyun.kfcoding.message.core.serializer.ObjectSerializer;
+import com.cuiyun.kfcoding.message.core.service.MqReceiveService;
+import com.cuiyun.kfcoding.message.core.service.mq.send.SendMessageServiceImpl;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,16 +46,16 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * MqReceiveServiceImpl.
- * @author maple(Myth)
+ * mqReceiveServiceImpl.
+ * @author maple(Message)
  */
-@Service("mythMqReceiveService")
-public class MqReceiveServiceImpl implements MythMqReceiveService {
+@Service("mqReceiveService")
+public class mqReceiveServiceImpl implements MqReceiveService {
 
     /**
      * logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(MqReceiveServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(mqReceiveServiceImpl.class);
 
     private static final Lock LOCK = new ReentrantLock();
 
@@ -66,10 +65,10 @@ public class MqReceiveServiceImpl implements MythMqReceiveService {
     private CoordinatorService coordinatorService;
 
     @Autowired
-    private MythTransactionEventPublisher publisher;
+    private TransactionEventPublisher publisher;
 
     @Autowired
-    private MythConfig mythConfig;
+    private AutoConfig autoConfig;
 
     @Override
     public Boolean processMessage(final byte[] message) {
@@ -77,9 +76,9 @@ public class MqReceiveServiceImpl implements MythMqReceiveService {
             MessageEntity entity;
             try {
                 entity = getObjectSerializer().deSerialize(message, MessageEntity.class);
-            } catch (MythException e) {
+            } catch (MessageException e) {
                 e.printStackTrace();
-                throw new MythRuntimeException(e.getMessage());
+                throw new MessageRuntimeException(e.getMessage());
             }
             /*
              * 1 检查该事务有没被处理过，已经处理过的 则不处理
@@ -88,51 +87,51 @@ public class MqReceiveServiceImpl implements MythMqReceiveService {
              */
             LOCK.lock();
             final String transId = entity.getTransId();
-            final MythTransaction mythTransaction = coordinatorService.findByTransId(transId);
+            final Transaction transaction = coordinatorService.findByTransId(transId);
             //第一次调用 也就是服务down机，或者没有调用到的时候， 通过mq执行
-            if (Objects.isNull(mythTransaction)) {
+            if (Objects.isNull(transaction)) {
                 try {
                     execute(entity);
                     //执行成功 保存成功的日志
-                    final MythTransaction log = buildTransactionLog(transId, "",
-                            MythStatusEnum.COMMIT.getCode(),
-                            entity.getMythInvocation().getTargetClass().getName(),
-                            entity.getMythInvocation().getMethodName());
+                    final Transaction log = buildTransactionLog(transId, "",
+                            StatusEnum.COMMIT.getCode(),
+                            entity.getInvocation().getTargetClass().getName(),
+                            entity.getInvocation().getMethodName());
                     //submit(new CoordinatorAction(CoordinatorActionEnum.SAVE, log));
                     publisher.publishEvent(log, EventTypeEnum.SAVE.getCode());
                 } catch (Exception e) {
                     //执行失败保存失败的日志
-                    final MythTransaction log = buildTransactionLog(transId, e.getMessage(),
-                            MythStatusEnum.FAILURE.getCode(),
-                            entity.getMythInvocation().getTargetClass().getName(),
-                            entity.getMythInvocation().getMethodName());
+                    final Transaction log = buildTransactionLog(transId, e.getMessage(),
+                            StatusEnum.FAILURE.getCode(),
+                            entity.getInvocation().getTargetClass().getName(),
+                            entity.getInvocation().getMethodName());
                     publisher.publishEvent(log, EventTypeEnum.SAVE.getCode());
-                    throw new MythRuntimeException(e);
+                    throw new MessageRuntimeException(e);
                 } finally {
                     TransactionContextLocal.getInstance().remove();
                 }
             } else {
                 //如果是执行失败的话
-                if (mythTransaction.getStatus() == MythStatusEnum.FAILURE.getCode()) {
+                if (transaction.getStatus() == StatusEnum.FAILURE.getCode()) {
                     //如果超过了最大重试次数 则不执行
-                    if (mythTransaction.getRetriedCount() >= mythConfig.getRetryMax()) {
-                        LogUtil.error(LOGGER, () -> "此事务已经超过了最大重试次数:" + mythConfig.getRetryMax()
-                                + " ,执行接口为:" + entity.getMythInvocation().getTargetClass() + " ,方法为:"
-                                + entity.getMythInvocation().getMethodName() + ",事务id为：" + entity.getTransId());
+                    if (transaction.getRetriedCount() >= autoConfig.getRetryMax()) {
+                        LOGGER.error("此事务已经超过了最大重试次数:" + autoConfig.getRetryMax()
+                                + " ,执行接口为:" + entity.getInvocation().getTargetClass() + " ,方法为:"
+                                + entity.getInvocation().getMethodName() + ",事务id为：" + entity.getTransId());
                         return Boolean.FALSE;
                     }
                     try {
                         execute(entity);
                         //执行成功 更新日志为成功
-                        mythTransaction.setStatus(MythStatusEnum.COMMIT.getCode());
-                        publisher.publishEvent(mythTransaction, EventTypeEnum.UPDATE_STATUS.getCode());
+                        transaction.setStatus(StatusEnum.COMMIT.getCode());
+                        publisher.publishEvent(transaction, EventTypeEnum.UPDATE_STATUS.getCode());
 
                     } catch (Throwable e) {
                         //执行失败，设置失败原因和重试次数
-                        mythTransaction.setErrorMsg(e.getCause().getMessage());
-                        mythTransaction.setRetriedCount(mythTransaction.getRetriedCount() + 1);
-                        publisher.publishEvent(mythTransaction, EventTypeEnum.UPDATE_FAIR.getCode());
-                        throw new MythRuntimeException(e);
+                        transaction.setErrorMsg(e.getCause().getMessage());
+                        transaction.setRetriedCount(transaction.getRetriedCount() + 1);
+                        publisher.publishEvent(transaction, EventTypeEnum.UPDATE_FAIR.getCode());
+                        throw new MessageRuntimeException(e);
                     } finally {
                         TransactionContextLocal.getInstance().remove();
                     }
@@ -147,36 +146,36 @@ public class MqReceiveServiceImpl implements MythMqReceiveService {
 
     private void execute(final MessageEntity entity) throws Exception {
         //设置事务上下文，这个类会传递给远端
-        MythTransactionContext context = new MythTransactionContext();
+        TransactionContext context = new TransactionContext();
         //设置事务id
         context.setTransId(entity.getTransId());
         //设置为发起者角色
-        context.setRole(MythRoleEnum.LOCAL.getCode());
+        context.setRole(RoleEnum.LOCAL.getCode());
         TransactionContextLocal.getInstance().set(context);
-        executeLocalTransaction(entity.getMythInvocation());
+        executeLocalTransaction(entity.getInvocation());
     }
 
     @SuppressWarnings("unchecked")
-    private void executeLocalTransaction(final MythInvocation mythInvocation) throws Exception {
-        if (Objects.nonNull(mythInvocation)) {
-            final Class clazz = mythInvocation.getTargetClass();
-            final String method = mythInvocation.getMethodName();
-            final Object[] args = mythInvocation.getArgs();
-            final Class[] parameterTypes = mythInvocation.getParameterTypes();
+    private void executeLocalTransaction(final Invocation invocation) throws Exception {
+        if (Objects.nonNull(invocation)) {
+            final Class clazz = invocation.getTargetClass();
+            final String method = invocation.getMethodName();
+            final Object[] args = invocation.getArgs();
+            final Class[] parameterTypes = invocation.getParameterTypes();
             final Object bean = SpringBeanUtils.getInstance().getBean(clazz);
             MethodUtils.invokeMethod(bean, method, args, parameterTypes);
-            LogUtil.debug(LOGGER, "Myth执行本地协调事务:{}", () -> mythInvocation.getTargetClass() + ":" + mythInvocation.getMethodName());
+            LOGGER.debug("message执行本地协调事务:{}", invocation.getTargetClass() + ":" + invocation.getMethodName());
 
         }
     }
 
-    private MythTransaction buildTransactionLog(final String transId, final String errorMsg, final Integer status,
+    private Transaction buildTransactionLog(final String transId, final String errorMsg, final Integer status,
                                                 final String targetClass, final String targetMethod) {
-        MythTransaction logTransaction = new MythTransaction(transId);
+        Transaction logTransaction = new Transaction(transId);
         logTransaction.setRetriedCount(1);
         logTransaction.setStatus(status);
         logTransaction.setErrorMsg(errorMsg);
-        logTransaction.setRole(MythRoleEnum.PROVIDER.getCode());
+        logTransaction.setRole(RoleEnum.PROVIDER.getCode());
         logTransaction.setTargetClass(targetClass);
         logTransaction.setTargetMethod(targetMethod);
         return logTransaction;
@@ -184,7 +183,7 @@ public class MqReceiveServiceImpl implements MythMqReceiveService {
 
     private synchronized ObjectSerializer getObjectSerializer() {
         if (serializer == null) {
-            synchronized (MythSendMessageServiceImpl.class) {
+            synchronized (SendMessageServiceImpl.class) {
                 if (serializer == null) {
                     serializer = SpringBeanUtils.getInstance().getBean(ObjectSerializer.class);
                 }

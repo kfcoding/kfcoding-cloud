@@ -22,7 +22,7 @@ import com.cuiyun.kfcoding.message.core.bean.entity.Transaction;
 
 /**
  * SendMessageService.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 public interface SendMessageService {
 

@@ -22,7 +22,7 @@ import com.cuiyun.kfcoding.message.core.constant.CommonConstant;
 
 /**
  * DbTypeUtils.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 public class DbTypeUtils {
 

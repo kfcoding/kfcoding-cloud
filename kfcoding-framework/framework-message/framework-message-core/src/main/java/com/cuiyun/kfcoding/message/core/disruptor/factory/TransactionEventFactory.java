@@ -24,7 +24,7 @@ import com.lmax.disruptor.EventFactory;
 
 /**
  * TransactionEventFactory.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 public class TransactionEventFactory implements EventFactory<TransactionEvent> {
 

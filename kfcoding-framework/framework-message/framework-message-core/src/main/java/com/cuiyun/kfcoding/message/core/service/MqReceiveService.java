@@ -20,7 +20,7 @@ package com.cuiyun.kfcoding.message.core.service;
 
 /**
  * process receive mq info .
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @FunctionalInterface
 public interface MqReceiveService {

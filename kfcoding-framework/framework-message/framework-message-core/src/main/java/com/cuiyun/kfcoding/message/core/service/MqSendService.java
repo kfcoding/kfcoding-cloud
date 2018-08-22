@@ -20,7 +20,7 @@ package com.cuiyun.kfcoding.message.core.service;
 
 /**
  * send mq message.
- * @author maple(Myth)
+ * @author maple(Message)
  */
 @FunctionalInterface
 public interface MqSendService {
@@ -29,7 +29,7 @@ public interface MqSendService {
      * send message.
      * @param destination destination
      * @param pattern {@linkplain com.github.myth.annotation.MessageTypeEnum}
-     * @param message convert MythTransaction to byte[]
+     * @param message convert MessageTransaction to byte[]
      */
     void sendMessage(String destination, Integer pattern, byte[] message);
 

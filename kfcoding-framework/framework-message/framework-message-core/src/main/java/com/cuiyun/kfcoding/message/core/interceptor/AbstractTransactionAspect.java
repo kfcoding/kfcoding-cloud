@@ -56,7 +56,7 @@ public abstract class AbstractTransactionAspect {
      * @throws Throwable  Throwable
      */
     @Around("transactionInterceptor()")
-    public Object interceptMythAnnotationMethod(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object interceptAnnotationMethod(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         return transactionInterceptor.interceptor(proceedingJoinPoint);
     }
 
