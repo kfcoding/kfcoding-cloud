@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.TYPE})
 @Documented
-public @interface EnableKfcodingMessaging {
+public @interface KfcodingMessaging {
     /**
      * The destination name for this listener, resolved through the container-wide
      * 消息队列的唯一标识(在rocketmq或者aliyunmq中是topic).

@@ -18,6 +18,7 @@
 
 package com.cuiyun.kfcoding.message.core.interceptor;
 
+import com.cuiyun.kfcoding.message.core.annotation.KfcodingMessaging;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -42,15 +43,15 @@ public abstract class AbstractTransactionAspect {
 
 
     /**
-     * this is point cut with {@linkplain com.cuiyun.kfcoding.message.core.annotation.EnableKfcodingMessaging }.
+     * this is point cut with {@linkplain KfcodingMessaging }.
      */
-    @Pointcut("@annotation(com.cuiyun.kfcoding.message.core.annotation.EnableKfcodingMessaging)")
+    @Pointcut("@annotation(com.cuiyun.kfcoding.message.core.annotation.KfcodingMessaging)")
     public void transactionInterceptor() {
 
     }
 
     /**
-     * this is around in {@linkplain com.cuiyun.kfcoding.message.core.annotation.EnableKfcodingMessaging }.
+     * this is around in {@linkplain KfcodingMessaging }.
      * @param proceedingJoinPoint proceedingJoinPoint
      * @return Object
      * @throws Throwable  Throwable
