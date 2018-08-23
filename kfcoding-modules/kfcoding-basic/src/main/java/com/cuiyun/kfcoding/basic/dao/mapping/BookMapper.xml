@@ -31,16 +31,16 @@
         <include refid="Base_Column_List" />
       FROM
         basic_book b
-      <if test="condition.tagId != null">
+      <if test="condition.bookTag != null and condition.bookTag != ''">
       INNER JOIN basic_book_to_book_tag b2t ON b.id = b2t.book_id
       INNER JOIN basic_book_tag t ON t.id = b2t.tag_id
       </if>
       WHERE 1=1
-        <if test="condition.tagId != null">
-            AND t.id = #{condition.tagId}
+        <if test="condition.bookTag != null and condition.bookTag != ''">
+            AND t.title = #{condition.bookTag}
         </if>
         <if test="condition.title">
-            AND b.title LIKE "%"#{condition.title}"%"
+            AND b.title LIKE concat('%', #{condition.title}, '%')
         </if>
         <if test="condition.level != null">
             AND b.level LIKE #{condition.level}
@@ -55,16 +55,16 @@
           count(b.id)
         FROM
          basic_book b
-        <if test="condition.tagId != null">
+        <if test="condition.bookTag != null and condition.bookTag != ''">
             INNER JOIN basic_book_to_book_tag b2t ON b.id = b2t.book_id
             INNER JOIN basic_book_tag t ON t.id = b2t.tag_id
         </if>
         WHERE 1=1
-        <if test="condition.tagId != null">
-            AND t.id = #{condition.tagId}
+        <if test="condition.bookTag != null and condition.bookTag != ''">
+            AND t.title = #{condition.bookTag}
         </if>
         <if test="condition.title">
-            AND b.title LIKE "%"#{condition.title}"%"
+            AND b.title LIKE concat('%', #{condition.title}, '%')
         </if>
         <if test="condition.level != null">
             AND b.level LIKE #{conditon.level}

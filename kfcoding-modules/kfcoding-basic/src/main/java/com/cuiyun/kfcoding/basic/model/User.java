@@ -1,12 +1,9 @@
 package com.cuiyun.kfcoding.basic.model;
 
-import java.util.Date;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.cuiyun.kfcoding.common.base.model.BaseModel;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -27,6 +24,7 @@ public class User extends BaseModel<User> {
     @TableField("avatar_url")
     private String avatarUrl;
     private String description;
+    @JSONField(serialize = false)
     private String password;
     private String role;
     private String city;

@@ -90,4 +90,11 @@ public class BookBiz extends BaseBiz<BookMapper, Book>{
         return bookToBookTagBiz.insertBatch(bookToBookTags);
     }
 
+    /**
+     *  根据用户Id获取当前书籍
+     */
+    public List<Book> getBooksByUserId(String userId){
+        return this.baseMapper.selectList(new EntityWrapper<Book>().eq("user_id", userId));
+    }
+
 }

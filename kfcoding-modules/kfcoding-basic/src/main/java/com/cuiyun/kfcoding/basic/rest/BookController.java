@@ -46,4 +46,12 @@ public class BookController extends BaseController<BookBiz, Book>{
     public TableResultResponse<Book> list(Page page) {
         return super.list(page);
     }
+
+    @RequestMapping(value = "/current",method = RequestMethod.GET)
+    @ApiOperation("根据id获取对象")
+    public ListRestResponse<Book> current(Page page) {
+        List<Book> books = baseBiz.getBooksByUserId(getCurrentUserId());
+        return new ListRestResponse<>().result(books);
+    }
+
 }

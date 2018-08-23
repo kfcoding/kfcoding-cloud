@@ -6,6 +6,9 @@ import com.cuiyun.kfcoding.basic.enums.BookStatusEnum;
 import com.cuiyun.kfcoding.common.base.model.BaseModel;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @program: kfcoding-cloud
  * @description: book实体类
@@ -29,6 +32,6 @@ public class Book extends BaseModel<Book>{
     private String surfaceBackground;
     private BookStatusEnum status = BookStatusEnum.PRIVATE;
     private Integer priority;
-//    @TableField(exist=false)
-//    private List<BookTag> bookTags = new ArrayList<>();
+    @TableField(exist=false)
+    private List<BookTag> bookTags = new ArrayList<>();
 }

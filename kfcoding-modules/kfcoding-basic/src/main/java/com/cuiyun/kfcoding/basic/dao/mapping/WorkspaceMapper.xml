@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiyun.kfcoding.basic.dao.WorkspaceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cuiyun.kfcoding.basic.model.Workspace">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="git_url" property="gitUrl" />
+        <result column="image" property="image" />
+        <result column="version" property="version" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="user_id" property="userId" />
+        <result column="container_name" property="containerName" />
+        <result column="release" property="release" />
+        <result column="repo" property="repo" />
+        <result column="type" property="type" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, description, git_url, image, version, create_time, update_time, is_del, status, user_id, container_name, release,repo, 'type'
+    </sql>
+
+    <sql id="Column_List">
+        w.id, w.title, w.description, w.git_url, w.image, w.version, w.create_time, w.update_time, w.is_del, w.status, w.user_id, w.container_name, w.release, w.repo, w.type
+    </sql>
+
+</mapper>

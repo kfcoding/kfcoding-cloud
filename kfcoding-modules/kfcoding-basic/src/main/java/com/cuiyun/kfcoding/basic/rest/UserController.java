@@ -51,4 +51,6 @@ public class UserController extends BaseController<UserBiz, User>{
         User user = baseBiz.selectById(getCurrentUserId());
         return new ObjectRestResponse().data(user);
     }
+
+
 }
